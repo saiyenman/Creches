@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "55099020545",
+    "firebase_url": "https://intellitechcreches-23de3.firebaseio.com",
+    "project_id": "intellitechcreches-23de3",
+    "storage_bucket": "intellitechcreches-23de3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55099020545:android:db7e931bd6c24c05b3f700",
+        "android_client_info": {
+          "package_name": "com.intellitech.creche"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "55099020545-m6s5l21d2r70lie2fga62m1a4l4st91j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.intellitech.creche",
+            "certificate_hash": "5f3b82ce9ec4d921b482df4bb30ec366aceaa931"
+          }
+        },
+        {
+          "client_id": "55099020545-38rtrfbfhkl27nd1h27jnj7ulh5lja3s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRETGziyd_zX49W2Lf1uK8xhiC0lX5T20"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "55099020545-38rtrfbfhkl27nd1h27jnj7ulh5lja3s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55099020545:android:f0ccd740be8080c7b3f700",
+        "android_client_info": {
+          "package_name": "com.intellitech.creches"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "55099020545-1eq55pkrfe6ki8139213ioao15hucq0l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.intellitech.creches",
+            "certificate_hash": "54edfd80c828fccf1cc91c7a3d4434e45d38e4ce"
+          }
+        },
+        {
+          "client_id": "55099020545-38rtrfbfhkl27nd1h27jnj7ulh5lja3s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRETGziyd_zX49W2Lf1uK8xhiC0lX5T20"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "55099020545-38rtrfbfhkl27nd1h27jnj7ulh5lja3s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

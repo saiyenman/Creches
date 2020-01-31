@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_news"
+        android:icon="@drawable/ic_home"
+        android:title="@string/news"/>
+    <item
+        android:id="@+id/nav_events"
+        android:icon="@drawable/callendarclock"
+        android:title="@string/events"/>
+    <item
+        android:id="@+id/nav_food"
+        android:icon="@drawable/ic_burger"
+        android:title="@string/food"/>
+    <item
+        android:id="@+id/nav_homework"
+        android:icon="@drawable/homework"
+        android:title="@string/homework"/>
+    <item
+        android:id="@+id/nav_callendar"
+        android:icon="@drawable/ic_calendar"
+        android:title="@string/callendar"/>
+    <item
+        android:id="@+id/nav_tuitions"
+        android:icon="@drawable/tuition"
+        android:title="@string/tuitions"/>
+</menu>

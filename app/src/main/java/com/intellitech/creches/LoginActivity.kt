@@ -4,45 +4,26 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.google.firebase.FirebaseException
-import com.google.firebase.FirebaseTooManyRequestsException
+import android.widget.EditText
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.PhoneAuthCredential
-import com.google.firebase.auth.PhoneAuthProvider
+import com.kusu.loadingbutton.LoadingButton
 import com.shashank.sony.fancytoastlib.FancyToast
 import kotlinx.android.synthetic.main.activity_login.*
-import java.util.concurrent.TimeUnit
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
-    var codeSent = ""
-    val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
-        override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-            signInWithPhoneAuthCredential(credential)
-        }
-
-        override fun onVerificationFailed(e: FirebaseException) {
-            if (e is FirebaseAuthInvalidCredentialsException) {
-                FancyToast.makeText(this@LoginActivity, "Les données saisies sont invalides !", FancyToast.LENGTH_LONG, FancyToast.WARNING, false).show()
-            } else if (e is FirebaseTooManyRequestsException) {
-                FancyToast.makeText(this@LoginActivity, "Veuillez patienter avant de refaire l'opération", FancyToast.LENGTH_LONG, FancyToast.WARNING, false).show()
-            }
-        }
-
-        override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
-            codeSent = verificationId
-            FancyToast.makeText(this@LoginActivity, "Code secret envoyé !", FancyToast.LENGTH_LONG, FancyToast.INFO, false).show()
-            login_verification_code.isEnabled = true
-        }
-    }
+    private lateinit var loginBtn: LoadingButton
+    private lateinit var loginPhoneEditText: EditText
+    private lateinit var loginPasswordEditText: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         mAuth = FirebaseAuth.getInstance()
         mAuth.setLanguageCode("fr")
+        loginBtn = findViewById(R.id.login_login_btn)
+        loginPhoneEditText = findViewById(R.id.login_phone)
+        loginPasswordEditText = findViewById(R.id.login_password)
     }
 
     override fun onStart() {
@@ -55,56 +36,40 @@ class LoginActivity : AppCompatActivity() {
         if (currentUser != null) {
            startMainActivity()
         }
-        login_request_code.setOnClickListener {
-            sendVerificationCode()
-        }
-        login_login_btn.setOnClickListener {
-            verifiyLoginCode()
+        loginBtn.setOnClickListener {
+            performLogin()
         }
     }
 
-    private fun sendVerificationCode() {
-        val phoneNumber= login_phone.text.toString()
-        if (phoneNumber.isEmpty() || phoneNumber.length < 10) {
-            login_phone.error = "Veuillez saisir un numéro valide"
-            login_phone.requestFocus()
+    private fun performLogin() {
+        val phone = loginPhoneEditText.text.toString()
+        val password = loginPasswordEditText.text.toString()
+
+        if (phone.length < 10) {
+            loginPhoneEditText.error= "Veuillez inserer un numéro correcte"
             return
-        } // We'll add more verification later
-
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-            "+213" + login_phone.text.toString().removePrefix("0"),
-            20,
-            TimeUnit.SECONDS,
-            this,
-            callbacks
-        )
-        Log.d("tratra", "+213" + login_phone.text.toString())
-    }
-
-    private fun verifiyLoginCode() {
-        val enteredCode = login_verification_code.text.toString()
-        if (enteredCode.isEmpty() || enteredCode.length < 6) {
-            login_verification_code.error = "Veuillez saisir un code valide"
-            login_verification_code.requestFocus()
-        } else {
-            val credential = PhoneAuthProvider.getCredential(codeSent, enteredCode)
-            signInWithPhoneAuthCredential(credential)
         }
-    }
-
-    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-        mAuth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val user = task.result?.user
-                    FancyToast.makeText(this@LoginActivity, "Authentification avec succès", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show()
+        if (phone.isEmpty()) {
+            loginPhoneEditText.error = "Veuillez insérer votre numéro de téléphone"
+            return
+        }
+        if (password.isEmpty()) {
+            loginPasswordEditText.error = "Veuillez insérer votre mot de passe"
+            return
+        }
+        loginBtn.showLoading()
+        FirebaseAuth.getInstance().signInWithEmailAndPassword("$phone@gmail.com", password)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    loginBtn.hideLoading()
                     startMainActivity()
-                } else {
-                    if (task.exception is FirebaseAuthInvalidCredentialsException) {
-                        FancyToast.makeText(this@LoginActivity, "Les données saisies sont invalides !", FancyToast.LENGTH_LONG, FancyToast.WARNING, false).show()
-                    }
                 }
             }
+            .addOnFailureListener {
+                loginBtn.hideLoading()
+                FancyToast.makeText(this, "La connexion a échoué, veuillez vérifier vos informations", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
+            }
+
     }
 
     private fun startMainActivity() {

@@ -1,6 +1,6 @@
 package com.intellitech.creches.models
 
-data class creche(
+data class Creche(
     val accounts: Accounts,
     val admin: Admin,
     val id: String,

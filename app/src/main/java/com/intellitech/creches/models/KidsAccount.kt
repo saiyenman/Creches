@@ -1,9 +1,8 @@
 package com.intellitech.creches.models
 
 data class KidsAccount(
-    val balance: BalanceX,
+    val balance: Balance,
     val kidProfile: KidProfile,
-    val loginAccount: LoginAccount,
-    val notifications: List<Notification>,
+    val parent: Parent,
     val paiments: List<Paiment>
 )

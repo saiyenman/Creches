@@ -1,14 +1,11 @@
 package com.intellitech.creches.models
 
 data class KidProfile(
-    val adress: String,
-    val dateOfBirth: String,
-    val healthCondition: String,
     val id: String,
     val lastName: String,
     val name: String,
-    val parentName: String,
-    val parentPhone: String,
-    val plceOfBirth: String,
+    val adress: String,
+    val dateOfBirth: String,
+    val healthCondition: String,
     val profilePic: Int
 )

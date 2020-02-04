@@ -1,6 +1,6 @@
 package com.intellitech.creches.models
 
-data class BalanceX(
+data class Balance(
     val ammount: Int,
     val isOverdue: Boolean
 )

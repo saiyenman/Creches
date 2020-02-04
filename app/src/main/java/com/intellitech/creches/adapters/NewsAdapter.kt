@@ -9,25 +9,33 @@ import com.intellitech.creches.R
 import com.intellitech.creches.models.News
 import kotlinx.android.synthetic.main.newsitem.view.*
 
-class NewsAdapter(val items : ArrayList<News>, val context: Context): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        return NewsViewHolder(LayoutInflater.from(context).inflate(R.layout.newsitem, parent, false))
-
+class NewsAdapter(var newsList : ArrayList<News>): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+    fun updateNews(newUsers: List<News>) {
+        newsList.clear()
+        newsList.addAll(newUsers)
+        notifyDataSetChanged()
     }
-
-    override fun getItemCount(): Int {
-        return items.size
-    }
-
-    override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        holder.item_news_description.text=items.get(position).description
-        holder.item_news_author.text=items.get(position).author
-        holder.item_news_Title.text=items.get(position).title
+    class NewsViewHolder(view:View) : RecyclerView.ViewHolder(view) {
+        var item_news_author = view.item_news_author
+        var item_news_Title = view.item_news_Title
+        var item_news_description = view.item_news_description
+        fun bind(news: News) {
+            item_news_author?.text = news.author
+            item_news_description?.text = news.description
+            item_news_Title?.text = news.title
         }
-
-    class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val item_news_author = itemView.item_news_author
-        val item_news_Title=itemView.item_news_Title
-        val item_news_description=itemView.item_news_description
     }
+    override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
+        val news: News = newsList[position]
+        holder.bind(news)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.newsitem, parent, false)
+        return NewsViewHolder(v)
+    }
+    override fun getItemCount(): Int {
+        return newsList.size
+    }
+
 }

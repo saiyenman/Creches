@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.intellitech.creches.R
-import com.intellitech.creches.models.News
+import com.intellitech.creches.model.News
 import kotlinx.android.synthetic.main.newsitem.view.*
 
 class NewsAdapter(val items : ArrayList<News>, val context: Context): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {

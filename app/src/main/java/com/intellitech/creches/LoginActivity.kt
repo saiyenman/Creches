@@ -69,7 +69,6 @@ class LoginActivity : AppCompatActivity() {
                 loginBtn.hideLoading()
                 FancyToast.makeText(this, "La connexion a échoué, veuillez vérifier vos informations", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
             }
-
     }
 
     private fun startMainActivity() {

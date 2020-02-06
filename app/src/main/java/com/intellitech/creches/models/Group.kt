@@ -5,6 +5,5 @@ data class Group(
     val groupProfile: GroupProfile,
     val meals: List<Meal>,
     val other: List<Other>,
-    val section: Section,
     val sessions: List<Session>
 )

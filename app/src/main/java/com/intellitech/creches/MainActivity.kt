@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Commit the transaction
         transaction.commit()
         //DataService.createDatabase()
+        DataService.updateYear()
     }
 
 }

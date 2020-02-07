@@ -5,11 +5,13 @@ import com.google.firebase.database.FirebaseDatabase
 import com.intellitech.creches.models.*
 
 object DataService {
+    val database = FirebaseDatabase.getInstance().reference
+
     val parentKid1 = Parent(listOf(
         Notification("12-12-2019", "Your kid is gay"
-        , "12:00", "Alert")
+            , "12:00", "Alert")
         ,Notification("02-09-2002", "وليدك دار يوطار اوسمك"
-        , "13:00", "Alert")
+            , "13:00", "Alert")
         ,Notification("10-02-2004", "وليدك عندو سمانة ماجاش"
             , "15:00", "Alert"))
         , ParentProfile("Bouraoui Ammar", "123456", "Mohammed", "Salah"
@@ -48,8 +50,8 @@ object DataService {
     val groupeprofile2=GroupProfile("type 1",
         EducatorProfile("0675757575@gmail.com","Fares GHrr","GN02","Job test","0675757575"),"G02","الانانيش"
     )
-    val event1=Event("حضانة creche123 تهنئكم على ذكرى يوم العلم","16-04-2020","يوم العلم","01")
-    val event2=Event("حضانة creche123 تهنئكم على عيد الام","13-05-2020","عيد الام","02")
+    val event1=Event("حضانة creche123 تهنئكم على ذكرى يوم العلم", " ","16-04-2020","يوم العلم","01")
+    val event2=Event("حضانة creche123 تهنئكم على عيد الام"," ","13-05-2020","عيد الام","02")
     val meal1=Meal("حليب","meal menu","09:00")
     val meal2=Meal("كروفات","meal menu","12:00")
     val meal3=Meal("حليب","meal menu","15:00")
@@ -98,8 +100,18 @@ object DataService {
 
 
     fun createDatabase() {
-        val database = FirebaseDatabase.getInstance().reference
         database.child("creche123").setValue(creche)
+            .addOnSuccessListener {
+                Log.d("firebase", "success")
+            }
+            .addOnFailureListener {
+                Log.d("firebase", it.message)
+            }
+    }
+
+    fun updateYear() {
+        val year = database.child("creche123/years/2020/months").child("1")
+        year.setValue(month1)
             .addOnSuccessListener {
                 Log.d("firebase", "success")
             }

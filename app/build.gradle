@@ -40,5 +40,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation 'com.google.firebase:firebase-core:17.2.2'
     implementation 'com.google.firebase:firebase-database:19.2.1'
+    // FancyToast
     implementation 'com.github.Shashank02051997:FancyToast-Android:0.1.6'
+    // Groupie
+    implementation "com.xwray:groupie:2.7.0"
+    implementation "com.xwray:groupie-kotlin-android-extensions:2.7.0"
 }

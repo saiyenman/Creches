@@ -1,7 +1,11 @@
 package com.intellitech.creches.services
 
 import android.util.Log
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.intellitech.creches.interfaces.FirebaseDataInterface
 import com.intellitech.creches.models.*
 
 object DataService {
@@ -50,8 +54,8 @@ object DataService {
     val groupeprofile2=GroupProfile("type 1",
         EducatorProfile("0675757575@gmail.com","Fares GHrr","GN02","Job test","0675757575"),"G02","الانانيش"
     )
-    val event1=Event("حضانة creche123 تهنئكم على ذكرى يوم العلم", " ","16-04-2020","يوم العلم","01")
-    val event2=Event("حضانة creche123 تهنئكم على عيد الام"," ","13-05-2020","عيد الام","02")
+    val event1=Event("حضانة creche123 تهنئكم على ذكرى يوم العلم", arrayListOf("https://i.picsum.photos/id/716/200/300.jpg","https://i.picsum.photos/id/288/200/300.jpg","https://i.picsum.photos/id/852/200/300.jpg"),"16-04-2020","يوم العلم","01")
+    val event2=Event("حضانة creche123 تهنئكم على عيد الام", listOf(),"13-05-2020","عيد الام","02")
     val meal1=Meal("حليب","meal menu","09:00")
     val meal2=Meal("كروفات","meal menu","12:00")
     val meal3=Meal("حليب","meal menu","15:00")
@@ -110,13 +114,28 @@ object DataService {
     }
 
     fun updateYear() {
-        val year = database.child("creche123/years/2020/months").child("1")
-        year.setValue(month1)
+        val month = database.child("creche123/years/2020/months/1/days/0/groups/0/events").child("1")
+        month.setValue(event1)
             .addOnSuccessListener {
                 Log.d("firebase", "success")
             }
             .addOnFailureListener {
                 Log.d("firebase", it.message)
             }
+    }
+
+    fun getSingleEvent(eventListener: FirebaseDataInterface): Event? {
+        var event: Event? = null
+        val eventRef = database.child("creche123/years/2020/months/1/days/0/groups/0/events").child("1")
+        eventRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot) {
+                event = p0.getValue(Event::class.java)
+                eventListener.onEventDataFetched(event!!)
+            }
+            override fun onCancelled(p0: DatabaseError) {
+                Log.d("firebase", p0.message)
+            }
+        })
+        return event
     }
 }

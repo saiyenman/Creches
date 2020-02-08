@@ -2,6 +2,7 @@ package com.intellitech.creches
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.GridLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -10,10 +11,18 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.intellitech.creches.fragment.*
+import com.intellitech.creches.interfaces.FirebaseDataInterface
+import com.intellitech.creches.items.EventItem
+import com.intellitech.creches.models.Event
 import com.intellitech.creches.services.DataService
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
+import kotlinx.android.synthetic.main.fragment_news.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var grid: GridLayout
+    val eventsAdapter = GroupAdapter<GroupieViewHolder>()
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_news -> {
@@ -45,7 +54,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -72,7 +80,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Commit the transaction
         transaction.commit()
         //DataService.createDatabase()
-        DataService.updateYear()
+        //DataService.updateYear()
     }
 
+    override fun onStart() {
+        super.onStart()
+        news_rv.adapter = eventsAdapter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val event = DataService.getSingleEvent(object : FirebaseDataInterface {
+            override fun onEventDataFetched(event: Event) {
+                eventsAdapter.add(EventItem(event))
+                Log.d("firenase", event.eventDescription)
+            }
+
+        })
+    }
 }

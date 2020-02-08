@@ -45,4 +45,6 @@ dependencies {
     // Groupie
     implementation "com.xwray:groupie:2.7.0"
     implementation "com.xwray:groupie-kotlin-android-extensions:2.7.0"
+    // Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

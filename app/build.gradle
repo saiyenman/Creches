@@ -51,4 +51,5 @@ dependencies {
     implementation "com.xwray:groupie-kotlin-android-extensions:2.7.0"
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.2'
 }

@@ -42,7 +42,6 @@ class NewsFragment : Fragment() {
         news_rv.adapter = eventAdapter
         DataService.getKidsGroupEvents(phone!!) { eventList ->
             eventList.forEach { event ->
-                Log.d("item", "+1")
                 eventAdapter.add(EventItem(event))
             }
         }

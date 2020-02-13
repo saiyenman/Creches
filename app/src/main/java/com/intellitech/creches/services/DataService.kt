@@ -51,13 +51,13 @@ object DataService {
     val groupeprofile2=GroupProfile("type 1",
         EducatorProfile("0675757575@gmail.com","Fares GHrr","GN02","Job test","0675757575"),"G02","الانانيش"
     )
-    val event1=Event("حضانة creche123 تهنئكم على ذكرى يوم العلم", arrayListOf("https://i.picsum.photos/id/716/200/300.jpg","https://i.picsum.photos/id/288/200/300.jpg","https://i.picsum.photos/id/852/200/300.jpg"),"16-04-2020","يوم العلم","01")
-    val event2=Event("حضانة creche123 تهنئكم على عيد الام", listOf(),"13-05-2020","عيد الام","02")
+    /*val event1=Event("حضانة creche123 تهنئكم على ذكرى يوم العلم", arrayListOf("https://i.picsum.photos/id/716/200/300.jpg","https://i.picsum.photos/id/288/200/300.jpg","https://i.picsum.photos/id/852/200/300.jpg"),"16-04-2020","يوم العلم","01")
+    val event2=Event("حضانة creche123 تهنئكم على عيد الام", listOf(), """13-05-2020","عيد الام","02")
     val meal1=Meal("حليب","meal menu","09:00")
     val meal2=Meal("كروفات","meal menu","12:00")
     val meal3=Meal("حليب","meal menu","15:00")
     val other1=Other("description1","13:00","title")
-    val other2=Other("description2","14:00","title2")
+    val other2=Other("description2","14:00","title2")*/
 
     /*val groupe1=Group(listOf(event1,event2),groupeprofile1,listOf(meal1,meal2,meal3),listOf(
         other1, other2), listOf(session1,session2))*/
@@ -101,17 +101,6 @@ object DataService {
     fun createDatabase() {
         val monthsRef = database.child("creche123/years/2020/months/1/days/1/groups")
 
-    }
-
-    fun updateYear() {
-        val month = database.child("creche123/years/2020/months/1/days/0/groups/0/events").child("1")
-        month.setValue(event1)
-            .addOnSuccessListener {
-                Log.d("firebase", "success")
-            }
-            .addOnFailureListener {
-                Log.d("firebase", it.message)
-            }
     }
 
     fun getSingleEvent(eventListener: FirebaseDataInterface): Event? {

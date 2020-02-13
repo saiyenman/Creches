@@ -6,4 +6,6 @@ data class KindergartenProfil(
     val manager: String,
     val owner: String,
     val phoneNumber: String
-)
+) {
+    constructor(): this("", "", "", "", "")
+}

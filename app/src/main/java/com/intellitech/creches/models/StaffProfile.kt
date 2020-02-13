@@ -6,4 +6,6 @@ data class StaffProfile(
     val id: String,
     val phoneNumber: String,
     val role: String
-)
+) {
+    constructor(): this("", "", "", "", "")
+}

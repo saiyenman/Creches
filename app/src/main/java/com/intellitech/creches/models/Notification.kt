@@ -5,4 +5,6 @@ data class Notification(
     val notificationText: String,
     val notificationTime: String,
     val notificationTitle: String
-)
+) {
+    constructor(): this("", "", "", "")
+}

@@ -1,10 +1,15 @@
 package com.intellitech.creches
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
 import com.google.firebase.auth.FirebaseAuth
+import com.intellitech.creches.models.KidAccount
+import com.intellitech.creches.utils.PARENT_PHONE_EXTRA
+import com.intellitech.creches.utils.PARENT_PHONE_PREF
+import com.intellitech.creches.utils.SHARED_PREF_NAME
 import com.kusu.loadingbutton.LoadingButton
 import com.shashank.sony.fancytoastlib.FancyToast
 import kotlinx.android.synthetic.main.activity_login.*
@@ -14,6 +19,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginBtn: LoadingButton
     private lateinit var loginPhoneEditText: EditText
     private lateinit var loginPasswordEditText: EditText
+    lateinit var sharedPrefs : SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +29,8 @@ class LoginActivity : AppCompatActivity() {
         loginBtn = findViewById(R.id.login_login_btn)
         loginPhoneEditText = findViewById(R.id.login_phone)
         loginPasswordEditText = findViewById(R.id.login_password)
+
+        sharedPrefs = getSharedPreferences(SHARED_PREF_NAME, 0)
     }
 
     override fun onStart() {
@@ -31,10 +39,6 @@ class LoginActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         toolbar.setTitleTextColor(resources.getColor(R.color.whiteColor))
         supportActionBar?.title = "Espace parent"
-        val currentUser = mAuth.currentUser
-        if (currentUser != null) {
-           startMainActivity()
-        }
         loginBtn.setOnClickListener {
             performLogin()
         }
@@ -61,7 +65,8 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     loginBtn.hideLoading()
-                    startMainActivity()
+                    sharedPrefs.edit().putString(PARENT_PHONE_PREF, phone).apply()
+                    startMainActivity(phone)
                 }
             }
             .addOnFailureListener {
@@ -70,7 +75,9 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
-    private fun startMainActivity() {
-        startActivity(Intent(this, MainActivity::class.java))
+    private fun startMainActivity(phone: String) {
+        val mainIntent = Intent(this, MainActivity::class.java)
+        mainIntent.putExtra(PARENT_PHONE_EXTRA, phone)
+        startActivity(mainIntent)
     }
 }

@@ -1,10 +1,7 @@
 package com.intellitech.creches.services
 
 import android.util.Log
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.intellitech.creches.interfaces.FirebaseDataInterface
 import com.intellitech.creches.models.*
 
@@ -37,9 +34,9 @@ object DataService {
     val kidProfile2 = KidProfile("city 14", "Ghanemi", "Aziz", "Tikejda", "27-11-1995", "worm",12)
     val kidProfile3 = KidProfile("city 15", "Benaha", "Amine", "Ras El Aioun", "27-11-1996", "very very good",12)
 
-    val kidAccount1 = KidsAccount(Balance(2000, false) , kidProfile1, parentKid1, listOf())
-    val kidAccount2 = KidsAccount(Balance(3800, false) , kidProfile1, parentKid1, listOf())
-    val kidAccount3 = KidsAccount(Balance(900, true) , kidProfile2, parentKid1, listOf())
+    val kidAccount1 = KidAccount(Balance(2000, false) , kidProfile1, parentKid1, listOf())
+    val kidAccount2 = KidAccount(Balance(3800, false) , kidProfile1, parentKid1, listOf())
+    val kidAccount3 = KidAccount(Balance(900, true) , kidProfile2, parentKid1, listOf())
 
     val staffAccount1=StaffAccount(LoginAccount("12345","0675757575"),StaffProfile("0675757575@gmail.com","Fares Staff","0011","0675757575","CPA1"))
     val staffAccount2=StaffAccount(LoginAccount("12345","0666666666"),StaffProfile("0666666666@gmail.com","Nassima Staff","0012","0666666666","CPA2"))
@@ -62,14 +59,14 @@ object DataService {
     val other1=Other("description1","13:00","title")
     val other2=Other("description2","14:00","title2")
 
-    val groupe1=Group(listOf(event1,event2),groupeprofile1,listOf(meal1,meal2,meal3),listOf(
-        other1, other2), listOf(session1,session2))
+    /*val groupe1=Group(listOf(event1,event2),groupeprofile1,listOf(meal1,meal2,meal3),listOf(
+        other1, other2), listOf(session1,session2))*/
 
 
-    val groupe2=Group(listOf(event1,event2),groupeprofile1,listOf(meal1,meal2,meal3),listOf(
+    /*val groupe2=Group(listOf(event1,event2),groupeprofile1,listOf(meal1,meal2,meal3),listOf(
         other1, other2), listOf(session1,session2))
     val groupe3=Group(listOf(event1,event2),groupeprofile2,listOf(meal1,meal2,meal3),listOf(
-        other1, other2), listOf(session1,session2))
+        other1, other2), listOf(session1,session2))*/
 
 
     var sectionProfile1=SectionProfile("15","01",
@@ -78,18 +75,18 @@ object DataService {
     var sectionProfile2=SectionProfile("15","02",
         SectionSupervisorProfile("0675757575@gmail.com","Fares GHrr","S2","0675757575","001"),"section 2"
     )
-    val section1=Section(listOf(groupe1,groupe2,groupe3), sectionProfile1)
+   /* val section1=Section(listOf(groupe1,groupe2,groupe3), sectionProfile1)
     var section2=Section(listOf(groupe2,groupe1), sectionProfile2)
 
     var day1=Day("01", "", listOf(groupe1, groupe2,groupe3))
     var day2=Day("02", "", listOf(groupe1, groupe2,groupe3))
     var day3=Day("15", "", listOf(groupe1, groupe2,groupe3))
     var day4=Day("01", "", listOf(groupe1, groupe2,groupe3))
-    var day5=Day("01", "", listOf(groupe1, groupe2,groupe3))
-    var month1=Month(listOf(day1,day2, day3),"01")
-    var month2=Month(listOf(day1,day2, day3,day5),"03")
+    var day5=Day("01", "", listOf(groupe1, groupe2,groupe3))*/
+    /*var month1=Month(listOf(day1,day2, day3),"01")
+    var month2=Month(listOf(day1,day2, day3,day5),"03")*/
 
-    val accounts = Accounts(listOf(kidAccount1,kidAccount2,kidAccount3), listOf(staffAccount1,
+    /*val accounts = Accounts(listOf(kidAccount1,kidAccount2,kidAccount3), listOf(staffAccount1,
         staffAccount2))
     val creche: Creche = Creche(
         accounts
@@ -99,18 +96,11 @@ object DataService {
         , listOf(
             section1, section2)
         ,listOf(
-            Year(listOf(month1,month2),"2020")))
-
-
+            Year(listOf(month1,month2),"2020")))*/
 
     fun createDatabase() {
-        database.child("creche123").setValue(creche)
-            .addOnSuccessListener {
-                Log.d("firebase", "success")
-            }
-            .addOnFailureListener {
-                Log.d("firebase", it.message)
-            }
+        val monthsRef = database.child("creche123/years/2020/months/1/days/1/groups")
+
     }
 
     fun updateYear() {
@@ -137,5 +127,50 @@ object DataService {
             }
         })
         return event
+    }
+
+    fun getParentKids(phone: String, kidsResult: (List<KidAccount>) -> Unit) {
+        val kidsRef = database.child("creche123/accounts/kidsAccounts")
+        kidsRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot) {
+                val kidsList = mutableListOf<KidAccount>()
+                for(kidAccount in p0.children) {
+                    val kid = kidAccount.getValue(KidAccount::class.java)
+                    if (kid != null) {
+                        if (kid.parent?.loginAccount!!.user == "$phone@gmail.com") {
+                            kidsList.add(kid)
+                        }
+                    }
+                }
+                kidsResult(kidsList)
+            }
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+        })
+    }
+
+    fun getKidsGroupEvents(phone: String, events: (List<Event>) -> Unit) {
+        val sectionsRef = database.child("creche123/sections")
+        sectionsRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot) {
+                for (section in p0.children) {
+                    val sectionObject = section.getValue(Section::class.java)
+                    sectionObject!!.groups!!.forEach {grp ->
+                        val group = grp
+                        group.kids!!.forEach {kidAcnt ->
+                            val kidAccount = kidAcnt
+                            if (kidAccount.parent!!.loginAccount!!.user == "$phone@gmail.com") {
+                                events(group.events!!)
+                            }
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+        })
     }
 }

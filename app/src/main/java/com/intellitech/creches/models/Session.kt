@@ -7,4 +7,6 @@ data class Session(
     val sessionTitle: String,
     val sessionType: String,
     val type: String
-)
+) {
+    constructor(): this("","","","","","")
+}

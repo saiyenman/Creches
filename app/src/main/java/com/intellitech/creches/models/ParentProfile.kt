@@ -7,4 +7,6 @@ data class ParentProfile(
     val name: String,
     val phone: String,
     val profilePic: Int
-)
+) {
+    constructor(): this("", "", "", "", "", 0)
+}

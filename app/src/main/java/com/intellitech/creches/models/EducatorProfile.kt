@@ -6,4 +6,6 @@ data class EducatorProfile(
     val id: String,
     val job: String,
     val phoneNumber: String
-)
+) {
+    constructor(): this("", "", "", "", "" )
+}

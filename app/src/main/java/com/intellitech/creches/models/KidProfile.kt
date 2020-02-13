@@ -8,4 +8,6 @@ data class KidProfile(
     val dateOfBirth: String,
     val healthCondition: String,
     val profilePic: Int
-)
+) {
+    constructor(): this("", "", "", "", "", "", 0)
+}

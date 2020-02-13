@@ -11,4 +11,6 @@ data class GroupMember(
     val parentPhone: String,
     val plceOfBirth: String,
     val profilePic: Int
-)
+) {
+    constructor(): this("", "", "", "", "", "", "", "", "", 0)
+}

@@ -16,4 +16,7 @@
     <string name="callendar">Calendrier</string>
     <string name="events">Evènements</string>
     <string name="homework">Travail à faire</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

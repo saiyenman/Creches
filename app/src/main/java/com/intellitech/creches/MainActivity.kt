@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_news -> {
-                supportFragmentManager.beginTransaction().add(R.id.content_frame, NewsFragment()).commit()
+                supportFragmentManager.beginTransaction().add(R.id.content_frame, NewsFragment.newInstance(phone)).commit()
             }
             R.id.nav_events -> {
                 supportFragmentManager.beginTransaction().add(R.id.content_frame, EventsFragment()).commit()

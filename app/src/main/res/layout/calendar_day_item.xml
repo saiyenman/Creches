@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="75dp"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp">
+
+    <TextView
+        android:id="@+id/dayNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="1" />
+
+    <TextView
+        android:id="@+id/dayName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/dayNum"
+        app:layout_constraintStart_toStartOf="@+id/dayNum"
+        app:layout_constraintTop_toBottomOf="@+id/dayNum"
+        tools:text="Dimanche" />
+</androidx.constraintlayout.widget.ConstraintLayout>

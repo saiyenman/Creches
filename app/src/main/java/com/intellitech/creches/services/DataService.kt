@@ -34,9 +34,9 @@ object DataService {
     val kidProfile2 = KidProfile("city 14", "Ghanemi", "Aziz", "Tikejda", "27-11-1995", "worm",12)
     val kidProfile3 = KidProfile("city 15", "Benaha", "Amine", "Ras El Aioun", "27-11-1996", "very very good",12)
 
-    val kidAccount1 = KidAccount(Balance(2000, false) , kidProfile1, parentKid1, listOf())
+    /*val kidAccount1 = KidAccount(Balance(2000, false) , kidProfile1, parentKid1, listOf())
     val kidAccount2 = KidAccount(Balance(3800, false) , kidProfile1, parentKid1, listOf())
-    val kidAccount3 = KidAccount(Balance(900, true) , kidProfile2, parentKid1, listOf())
+    val kidAccount3 = KidAccount(Balance(900, true) , kidProfile2, parentKid1, listOf())*/
 
     val staffAccount1=StaffAccount(LoginAccount("12345","0675757575"),StaffProfile("0675757575@gmail.com","Fares Staff","0011","0675757575","CPA1"))
     val staffAccount2=StaffAccount(LoginAccount("12345","0666666666"),StaffProfile("0666666666@gmail.com","Nassima Staff","0012","0666666666","CPA2"))
@@ -156,7 +156,6 @@ object DataService {
                     }
                 }
             }
-
             override fun onCancelled(p0: DatabaseError) {
 
             }

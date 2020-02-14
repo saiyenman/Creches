@@ -1,6 +1,5 @@
 package com.intellitech.creches.items
 
-import android.util.Log
 import com.intellitech.creches.R
 import com.intellitech.creches.models.Event
 import com.xwray.groupie.GroupAdapter
@@ -21,6 +20,7 @@ class EventItem(private val event: Event) : Item() {
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.event_item_text.text = event.eventDescription
+        // if the event date is > 1day we display the date, otherwise the time
         val formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy", Locale.ENGLISH)
         val date = LocalDate.parse(event.eventDate, formatter)
         val period = Period.between(date, LocalDate.now())
@@ -29,7 +29,6 @@ class EventItem(private val event: Event) : Item() {
         } else {
             viewHolder.itemView.event_item_time.text = event.eventTime
         }
-
         // Handling the image horizontal recycler
         viewHolder.itemView.event_item_image_recycler.adapter = imageAdapter
         for (image in event.eventPictures) {

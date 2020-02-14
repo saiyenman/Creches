@@ -21,6 +21,13 @@ import com.intellitech.creches.utils.SHARED_PREF_NAME
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_news.*
+import android.widget.Toast
+import android.content.DialogInterface
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import androidx.appcompat.app.AlertDialog
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var mAuth: FirebaseAuth
@@ -28,6 +35,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var toolbar: Toolbar
     lateinit var drawerLayout: DrawerLayout
     lateinit var navView: NavigationView
+    lateinit var kids: List<KidAccount>
+    lateinit var currentKid: KidAccount
 
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -72,6 +81,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             phone = getSharedPreferences(SHARED_PREF_NAME, 0).getString(PARENT_PHONE_PREF, "")!!
         }
 
+        DataService.getParentKids(phone) {  kidsResult ->
+            kids = kidsResult
+            currentKid = kidsResult[0]
+        }
+
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -92,24 +106,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             replace(R.id.content_frame, newsFragment)
             addToBackStack(null)
         }
-        // Commit the transaction
         transaction.commit()
-        //DataService.createDatabase()
-        //DataService.updateYear()
     }
 
     override fun onStart() {
         super.onStart()
-        //news_rv.adapter = eventsAdapter
+
     }
 
     override fun onResume() {
         super.onResume()
-        /*val event = DataService.getSingleEvent(object : FirebaseDataInterface {
-            override fun onEventDataFetched(event: Event) {
-                eventsAdapter.add(EventItem(event))
-                Log.d("firenase", event.eventDescription)
-            }
-        })*/
     }
 }

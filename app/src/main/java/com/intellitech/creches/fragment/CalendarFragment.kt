@@ -1,92 +1,36 @@
 package com.intellitech.creches.fragment
 
-import android.app.DatePickerDialog
-import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.DatePicker
-import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.intellitech.creches.R
-import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.*
-
+import com.intellitech.creches.items.CalendarDayItem
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
+import kotlinx.android.synthetic.main.fragment_calendar.*
 
 class CalendarFragment : Fragment() {
-      lateinit var calendar_btn:Button
-      lateinit var textview_day:TextView
+    val adapter = GroupAdapter<GroupieViewHolder>()
+    private val days: Map<String, String> = mapOf("1" to "Dimanche", "2" to "Lundi","3" to "Mardi","4" to "Mercredi","5" to "Jeudi")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val v= inflater.inflate(R.layout.fragment_calendar, container, false)
-        calendar_btn=v.findViewById(R.id.calendar_btn)
-        textview_day=v.findViewById(R.id.textview_day)
-        val cal = Calendar.getInstance()
-        val myFormat = "EEEE dd MMM yy"
-
-        // create an OnDateSetListener
-       // buttonDayteListener(cal,myFormat)
-
-        today(myFormat)
-        // create an OnDateSetListener
-        buttonDayteListener(cal,myFormat)
         return v
     }
-    private fun buttonDayteListener(
-        cal: Calendar,
-        myFormat: String
-    ) {
-        val dateSetListener = object : DatePickerDialog.OnDateSetListener {
-            override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
-                                   dayOfMonth: Int) {
-                cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, monthOfYear)
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                updateDateInView(cal,myFormat)
-            }
+
+    override fun onStart() {
+        super.onStart()
+        days_rv.adapter = adapter
+        days.forEach {
+            adapter.add(CalendarDayItem(it.key, it.value))
         }
-        calendar_btn.setOnClickListener {
-            DatePickerDialog(
-                context,
-                dateSetListener,
-                // set DatePickerDialog to point to today's date when it loads up
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)).show()
-        }
-    }
-
-    private fun today(myFormat: String) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val current = LocalDateTime.now()
-            val formatter = DateTimeFormatter.ofPattern(myFormat)
-            //Toast.makeText(context,current.format(formatter),Toast.LENGTH_SHORT).show()
-            textview_day.text =  current.format(formatter)
-
-        } else {
-            val date = Date()
-            val formatter = SimpleDateFormat(myFormat)
-            Toast.makeText(context,formatter.format(date),Toast.LENGTH_SHORT).show()
-            textview_day.text  = formatter.format(date)
-
-        }
-
-    }
-
-    private fun updateDateInView(cal: Calendar, myFormat: String) {
-        // mention the format you need
-        val sdf = SimpleDateFormat(myFormat, Locale.FRENCH)
-        textview_day.text = sdf.format(cal.time)
     }
 
 }

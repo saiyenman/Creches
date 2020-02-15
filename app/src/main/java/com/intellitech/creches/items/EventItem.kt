@@ -1,5 +1,7 @@
 package com.intellitech.creches.items
 
+import android.util.Log
+import com.bumptech.glide.Glide
 import com.intellitech.creches.R
 import com.intellitech.creches.models.Event
 import com.xwray.groupie.GroupAdapter
@@ -20,6 +22,9 @@ class EventItem(private val event: Event) : Item() {
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.event_item_text.text = event.eventDescription
+        viewHolder.itemView.event_item_title.text = event.eventTitle
+
+        Glide.with(viewHolder.root.context).load(R.drawable.avatar2).circleCrop().into(viewHolder.itemView.item_mail_avatar)
         // if the event date is > 1day we display the date, otherwise the time
         val formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy", Locale.ENGLISH)
         val date = LocalDate.parse(event.eventDate, formatter)

@@ -11,8 +11,9 @@ class MenuItem(private val dayMenu: DayMenu) : Item() {
     override fun getLayout() = R.layout.menuitem
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        viewHolder.itemView.menu_item_breakfast.text = dayMenu.breakfast
-        viewHolder.itemView.menu_item_lunch.text = dayMenu.lunch
+        viewHolder.itemView.menu_item_meal1.text = dayMenu.meal1
+        viewHolder.itemView.menu_item_meal2.text = dayMenu.meal2
+        viewHolder.itemView.menu_item_meal3.text = dayMenu.meal3
 
     }
 }

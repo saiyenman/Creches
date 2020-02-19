@@ -1,7 +1,7 @@
 package com.intellitech.creches.models
 
-class DayMenu (val breakfast: String,
-               val lunch: String,val day: String){
+class DayMenu (val meal1: String,
+               val meal2: String,val meal3:String){
     constructor(): this("","","")
 
 }

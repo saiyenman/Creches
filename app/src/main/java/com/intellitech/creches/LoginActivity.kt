@@ -66,6 +66,7 @@ class LoginActivity : AppCompatActivity() {
                 if (it.isSuccessful) {
                     loginBtn.hideLoading()
                     sharedPrefs.edit().putString(PARENT_PHONE_PREF, phone).apply()
+                    sharedPrefs.edit().putString("kidId","amine").apply()
                     startMainActivity(phone)
                 }
             }

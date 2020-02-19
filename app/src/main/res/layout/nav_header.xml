@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="#4FB3F6"
-        android:orientation="vertical"
-        android:gravity="bottom"
-        android:paddingLeft="15dp"
-        android:paddingBottom="15dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="#4FB3F6"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingBottom="15dp">
 
     <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/ic_launcher"
-            android:id="@+id/imageView"
-            android:layout_marginBottom="15dp"/>
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
+        app:srcCompat="@mipmap/ic_launcher" />
 
     <TextView
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="NomPrenom"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold" android:id="@+id/studentName"/>
+        android:id="@+id/studentName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="NomPrenom"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
 
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Classe de l'étudiant"
-            android:textColor="#FFFFFF" android:id="@+id/studentClass"/>
+        android:id="@+id/studentClass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Classe de l'étudiant"
+        android:textColor="#FFFFFF" />
 
 </LinearLayout>

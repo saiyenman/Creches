@@ -19,9 +19,11 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
 class HomeworkFragment : Fragment() {
-
+    private var kid:String?=null
     lateinit var homework_rv:RecyclerView
     val homeworkAdapter = GroupAdapter<GroupieViewHolder>()
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,12 +50,11 @@ class HomeworkFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            it
+            kid = it.getString("kidid")
         }
-        /*DataService.getParentKids(phone!!) {
-        }*/
-    }
 
+
+    }
     private fun fetchHomworks(){
         val database = FirebaseDatabase.getInstance().reference
         val homeworkRef= database.child("creche123/sections/0/groups/0/other")
@@ -65,7 +66,7 @@ class HomeworkFragment : Fragment() {
                     val homewrk=it.getValue(Other::class.java)
                     if(homewrk!=null)
                     {
-                        if(homewrk.to.contains("amine")){
+                        if(homewrk.to.contains("islem")){
                             adapter.add(HomeworkItem(homewrk))
                         }
                     }

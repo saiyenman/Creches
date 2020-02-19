@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">حظانة</string>
+    <string name="welcome">مرحبا !</string>
+    <string name="tuitions">مستحقات</string>
+    <string name="title_activity_login">تسجيل الدخول</string>
+    <string name="signout">تغيير الحساب</string>
+    <string name="prompt_password">الرقم السري</string>
+    <string name="prompt_email">الاميل</string>
+    <string name="news">آخر الاخبار</string>
+    <string name="login_failed">فشل تسجيل الدخول</string>
+    <string name="invalid_username">اسم المستخدم غير صحيح</string>
+    <string name="invalid_password">الرقم السري يجب ان يتعدى 5 ارقام</string>
+    <string name="homework">واجب منزلي</string>
+    <string name="hello_blank_fragment">مرحبا فراجمنت فارغ</string>
+    <string name="action_sign_in_short">تسجيل الدخول</string>
+    <string name="callendar">رزنامة</string>
+    <string name="events">أحداث</string>
+    <string name="food">طبق اليوم</string>
+    <string name="given">قدم يوم</string>
+    <string name="meal1">فطور الصباح</string>
+    <string name="meal2">الغداء</string>
+    <string name="meal3">وجبة المساء</string>
+</resources>

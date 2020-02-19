@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Creche</string>
+    <string name="welcome">Bienvenue</string>
+    <string name="tuitions">Mes paiements</string>
+    <string name="title_activity_login">Se connecter</string>
+    <string name="signout">Changer de compte</string>
+    <string name="prompt_password">Mot de passe</string>
+    <string name="prompt_email">Email</string>
+    <string name="news">Fil d\'actualité</string>
+    <string name="login_failed">Echec de se connecter</string>
+    <string name="invalid_username">Identifiant non valide</string>
+    <string name="invalid_password">Le mot de passe doit deppaser 5 lettres</string>
+    <string name="homework">Travail à faire</string>
+    <string name="hello_blank_fragment">Un fragment vide</string>
+    <string name="action_sign_in_short">Se connecter</string>
+    <string name="callendar">Callendrier</string>
+    <string name="events">Evenements</string>
+    <string name="food">Menu</string>
+    <string name="given">Pour le :</string>
+    <string name="meal1">Petit déjeuner</string>
+    <string name="meal2">Déjeuner</string>
+    <string name="meal3">Dinner</string>
+</resources>

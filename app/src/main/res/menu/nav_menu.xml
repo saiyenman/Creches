@@ -24,4 +24,7 @@
         android:id="@+id/nav_tuitions"
         android:icon="@drawable/tuition"
         android:title="@string/tuitions"/>
+    <item
+        android:id="@+id/nav_signout"
+        android:title="@string/signout"/>
 </menu>

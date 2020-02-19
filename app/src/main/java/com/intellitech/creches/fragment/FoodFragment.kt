@@ -1,7 +1,6 @@
 package com.intellitech.creches.fragment
 
 import android.app.*
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -16,7 +15,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -24,10 +22,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.intellitech.creches.MainActivity
 import com.intellitech.creches.R
-import com.intellitech.creches.items.MenuItem
 import com.intellitech.creches.models.DayMenu
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.GroupieViewHolder
+import kotlinx.android.synthetic.main.fragment_food.*
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -37,7 +33,6 @@ class FoodFragment : Fragment() {
     lateinit var calendar_btn: Button
     lateinit var textview_day: TextView
     lateinit var menu_rv: RecyclerView
-    val menuAdapter = GroupAdapter<GroupieViewHolder>()
 
 
     //-------------------------------
@@ -57,8 +52,6 @@ class FoodFragment : Fragment() {
 
         calendar_btn=v.findViewById(R.id.calendar_btn)
         textview_day=v.findViewById(R.id.textview_day)
-        menu_rv=v.findViewById(R.id.menu_rv)
-        menu_rv.adapter = menuAdapter
         val cal = Calendar.getInstance()
         val myFormat = "EEEE dd MMM yy"
 
@@ -133,13 +126,12 @@ class FoodFragment : Fragment() {
 
         menuRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
-                val adapter= GroupAdapter<GroupieViewHolder>()
                 val todaymenu=p0.getValue(DayMenu::class.java)
                 if (todaymenu != null) {
-                    adapter.add(MenuItem(todaymenu))
-
+                    menu_item_meal1.text = todaymenu.meal1
+                    menu_item_meal2.text = todaymenu.meal2
+                    menu_item_meal3.text = todaymenu.meal3
                 }
-                menu_rv.adapter=adapter
             }
             override fun onCancelled(p0: DatabaseError) {
                 Log.d("firebase", p0.message)

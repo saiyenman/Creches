@@ -158,10 +158,21 @@ object DataService {
         })
     }
 
-    fun insertCalendar() {
-       val sessions = listOf(Session("قرأن كيما قال أمين","14:00","15:00"),Session("شرب الحليب كيما قال أمين","10:00","12:00"), Session("الرقاد كيما قال أمين","08:00","10:00"))
-        val calendarRef = database.child("creche123/sections/0/groups/0/calendar/dimanche")
-       calendarRef.setValue(sessions)
+    fun getDayCalendar(day: String, kid: KidAccount, calendar: (List<Session>) -> Unit) {
+        val calendarRef = database.child("creche123/sections/${kid.section}/groups/${kid.group}/calendar/${day.toLowerCase()}")
+        calendarRef.addValueEventListener(object : ValueEventListener {
+            val sessionList = mutableListOf<Session>()
+            override fun onDataChange(p0: DataSnapshot) {
+                for (session in p0.children) {
+                    val sessionObject = session.getValue(Session::class.java)
+                    sessionList.add(sessionObject!!)
+                }
+                calendar(sessionList)
+            }
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+        })
     }
 
 

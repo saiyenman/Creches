@@ -2,7 +2,6 @@ package com.intellitech.creches
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.ProgressDialog.show
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +21,7 @@ import com.intellitech.creches.utils.PARENT_PHONE_PREF
 import com.intellitech.creches.utils.SHARED_PREF_NAME
 import android.os.Build
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.content_main.*
 
 
@@ -33,6 +33,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var navView: NavigationView
     lateinit var kids: List<KidAccount>
     lateinit var currentKid: KidAccount
+    private val fragmentManager = supportFragmentManager
+    // Fragments
+    private var newsFragment: Fragment? = null
+    private var foodFragment: Fragment? = null
+    private var homeworkFragment: Fragment? = null
+    private var tuitionsFragment: Fragment? = null
+    private var calendarFragment: Fragment? = null
+    private var currentFragment: Fragment? = newsFragment
 
     private fun createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
@@ -53,22 +61,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_news -> {
-                supportFragmentManager.beginTransaction().add(R.id.content_frame, NewsFragment.newInstance(ArrayList(kids))).commit()
+                fragmentManager.beginTransaction().hide(currentFragment!!).show(newsFragment!!).commit()
+                currentFragment = newsFragment
             }
             R.id.nav_events -> {
-                supportFragmentManager.beginTransaction().add(R.id.content_frame, EventsFragment()).commit()
+                fragmentManager.beginTransaction().hide(currentFragment!!).show(newsFragment!!).commit()
+                currentFragment = newsFragment
             }
             R.id.nav_food -> {
-                supportFragmentManager.beginTransaction().add(R.id.content_frame, FoodFragment()).commit()
+                fragmentManager.beginTransaction().hide(currentFragment!!).show(foodFragment!!).commit()
+                currentFragment = foodFragment
             }
             R.id.nav_homework -> {
-                supportFragmentManager.beginTransaction().add(R.id.content_frame, HomeworkFragment()).commit()
+                fragmentManager.beginTransaction().hide(currentFragment!!).show(homeworkFragment!!).commit()
+                currentFragment = homeworkFragment
             }
             R.id.nav_tuitions -> {
-                supportFragmentManager.beginTransaction().add(R.id.content_frame, TuitionsFragment.newInstance(currentKid)).commit()
+                fragmentManager.beginTransaction().hide(currentFragment!!).show(tuitionsFragment!!).commit()
+                currentFragment = tuitionsFragment
             }
             R.id.nav_callendar -> {
-                supportFragmentManager.beginTransaction().add(R.id.content_frame, CalendarFragment()).commit()
+                fragmentManager.beginTransaction().hide(currentFragment!!).show(calendarFragment!!).commit()
+                currentFragment = calendarFragment
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
@@ -111,17 +125,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onStart() {
         super.onStart()
-        DataService.insertCalendar()
         DataService.getParentKids(phone) {  kidsResult ->
             kids = kidsResult
             currentKid = kidsResult[0]
             //  first fragment to launch -> News Fragment
-            val newsFragment = NewsFragment.newInstance(ArrayList(kids))
-            val transaction = supportFragmentManager.beginTransaction().apply {
-                replace(R.id.content_frame, newsFragment)
-                addToBackStack(null)
-            }
-            transaction.commit()
+            newsFragment = NewsFragment.newInstance(ArrayList(kids))
+            foodFragment = FoodFragment()
+            homeworkFragment = HomeworkFragment()
+            tuitionsFragment = TuitionsFragment.newInstance(currentKid)
+            calendarFragment = CalendarFragment.newInstance(currentKid)
+            initContent()
         }
         change_kid_btn.setOnClickListener {
             showKidsDialog()
@@ -146,5 +159,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         val dialog = builder.create()
         dialog.show()
+    }
+
+    fun initContent() {
+        fragmentManager.beginTransaction().add(R.id.content_frame, newsFragment!!, "news").commit()
+        fragmentManager.beginTransaction().add(R.id.content_frame, foodFragment!!, "food").hide(foodFragment!!).commit()
+        fragmentManager.beginTransaction().add(R.id.content_frame, homeworkFragment!!, "homework").hide(homeworkFragment!!).commit()
+        fragmentManager.beginTransaction().add(R.id.content_frame, tuitionsFragment!!, "tuition").hide(tuitionsFragment!!).commit()
+        fragmentManager.beginTransaction().add(R.id.content_frame, calendarFragment!!, "calendar").hide(calendarFragment!!).commit()
+        currentFragment = newsFragment
     }
 }

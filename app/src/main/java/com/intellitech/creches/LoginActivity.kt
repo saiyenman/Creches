@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.EditText
 import com.google.firebase.auth.FirebaseAuth
 import com.intellitech.creches.models.KidAccount
+import com.intellitech.creches.services.DataService
 import com.intellitech.creches.utils.PARENT_PHONE_EXTRA
 import com.intellitech.creches.utils.PARENT_PHONE_PREF
 import com.intellitech.creches.utils.SHARED_PREF_NAME
@@ -80,5 +81,6 @@ class LoginActivity : AppCompatActivity() {
         val mainIntent = Intent(this, MainActivity::class.java)
         mainIntent.putExtra(PARENT_PHONE_EXTRA, phone)
         startActivity(mainIntent)
+        finish()
     }
 }

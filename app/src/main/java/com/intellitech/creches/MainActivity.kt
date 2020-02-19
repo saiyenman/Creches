@@ -2,6 +2,7 @@ package com.intellitech.creches
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.ProgressDialog.show
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +32,9 @@ import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.os.Build
 import androidx.appcompat.app.AlertDialog
+import com.dialog.plus.ui.DialogPlus
+import com.dialog.plus.ui.DialogPlusBuilder
+import kotlinx.android.synthetic.main.content_main.*
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -61,7 +65,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_news -> {
-                supportFragmentManager.beginTransaction().add(R.id.content_frame, NewsFragment.newInstance(phone)).commit()
+                supportFragmentManager.beginTransaction().add(R.id.content_frame, NewsFragment.newInstance(ArrayList(kids))).commit()
             }
             R.id.nav_events -> {
                 supportFragmentManager.beginTransaction().add(R.id.content_frame, EventsFragment()).commit()
@@ -86,6 +90,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        kids = listOf()
         mAuth = FirebaseAuth.getInstance()
         val currentUser = mAuth.currentUser
         // If user not already logged in -> go to Login Activity
@@ -100,10 +105,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             phone = getSharedPreferences(SHARED_PREF_NAME, 0).getString(PARENT_PHONE_PREF, "")!!
         }
         createNotificationChannel()
-        DataService.getParentKids(phone) {  kidsResult ->
-            kids = kidsResult
-            currentKid = kidsResult[0]
-        }
 
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -118,22 +119,43 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
         navView.itemIconTintList = null
-
-        //  first fragment to launch -> News Fragment
-        val newsFragment = NewsFragment.newInstance(phone)
-        val transaction = supportFragmentManager.beginTransaction().apply {
-            replace(R.id.content_frame, newsFragment)
-            addToBackStack(null)
-        }
-        transaction.commit()
     }
 
     override fun onStart() {
         super.onStart()
-
+        DataService.getParentKids(phone) {  kidsResult ->
+            kids = kidsResult
+            currentKid = kidsResult[0]
+            //  first fragment to launch -> News Fragment
+            val newsFragment = NewsFragment.newInstance(ArrayList(kids))
+            val transaction = supportFragmentManager.beginTransaction().apply {
+                replace(R.id.content_frame, newsFragment)
+                addToBackStack(null)
+            }
+            transaction.commit()
+        }
+        change_kid_btn.setOnClickListener {
+            showKidsDialog()
+        }
     }
 
-    override fun onResume() {
-        super.onResume()
+    fun showKidsDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Choose a kid")
+        val dialogKids = arrayOfNulls<String>(kids.size)
+        var i = 0
+        kids.forEach {
+            dialogKids[i] = it.kidProfile?.name + it.kidProfile?.lastName
+            i++
+        }
+        builder.setItems(dialogKids) { dialog, which ->
+            when (which) {
+                0 -> { currentKid = kids[0] }
+                1 -> { currentKid = kids[1] }
+                2 -> { currentKid = kids[2] }
+            }
+        }
+        val dialog = builder.create()
+        dialog.show()
     }
 }

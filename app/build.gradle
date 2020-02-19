@@ -56,4 +56,5 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     // Date picker
     implementation 'com.vivekkaushik.datepicker:datePickerTimeline:0.0.4'
+    implementation  'com.dialog:plus:4+'
 }

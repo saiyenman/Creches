@@ -1,6 +1,7 @@
 package com.intellitech.creches.fragment
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -21,8 +22,7 @@ import kotlinx.android.synthetic.main.fragment_news.*
 private const val ARG_PHONE = "phone"
 
 class NewsFragment : Fragment() {
-    private var phone: String? = null
-    lateinit var parentKids: List<KidAccount>
+    private var kids: ArrayList<KidAccount>? = null
     private val eventAdapter = GroupAdapter<GroupieViewHolder>()
     lateinit var item_mail_avatar:ImageView
 
@@ -35,17 +35,15 @@ class NewsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            phone = it.getString(ARG_PHONE)
+            kids = it.getParcelableArrayList(ARG_PHONE)
         }
-        /*DataService.getParentKids(phone!!) {
-        }*/
     }
 
     override fun onResume() {
         super.onResume()
         news_rv.adapter = eventAdapter
-        DataService.getKidsGroupEvents(phone!!) { eventList ->
-            eventList.forEach { event ->
+        DataService.getKindergartenEvents { events ->
+            events.forEach { event ->
                 eventAdapter.add(EventItem(event))
             }
         }
@@ -53,10 +51,10 @@ class NewsFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(phoneParam: String) =
+        fun newInstance(kidsParam: ArrayList<KidAccount>) =
             NewsFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PHONE, phoneParam)
+                    putParcelableArrayList(ARG_PHONE, kidsParam as ArrayList<out Parcelable>?)
                 }
             }
     }

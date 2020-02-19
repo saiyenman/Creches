@@ -38,9 +38,9 @@ object DataService {
     val kidProfile2 = KidProfile("city 14", "Ghanemi", "Aziz", "Tikejda", "27-11-1995", "worm",12)
     val kidProfile3 = KidProfile("city 15", "Benaha", "Amine", "Ras El Aioun", "27-11-1996", "very very good",12)
 
-    /*val kidAccount1 = KidAccount(Balance(2000, false) , kidProfile1, parentKid1, listOf())
-    val kidAccount2 = KidAccount(Balance(3800, false) , kidProfile1, parentKid1, listOf())
-    val kidAccount3 = KidAccount(Balance(900, true) , kidProfile2, parentKid1, listOf())*/
+    val kidAccount1 = KidAccount(Balance(2000, false) , "1", "2", kidProfile1, parentKid1, listOf())
+    val kidAccount2 = KidAccount(Balance(3800, false) , "1", "2", kidProfile2, parentKid2, listOf())
+    val kidAccount3 = KidAccount(Balance(900, true) , "1", "2", kidProfile3, parentKid3, listOf())
 
     val staffAccount1=StaffAccount(LoginAccount("12345","0675757575"),StaffProfile("0675757575@gmail.com","Fares Staff","0011","0675757575","CPA1"))
     val staffAccount2=StaffAccount(LoginAccount("12345","0666666666"),StaffProfile("0666666666@gmail.com","Nassima Staff","0012","0666666666","CPA2"))
@@ -55,9 +55,11 @@ object DataService {
     val groupeprofile2=GroupProfile("type 1",
         EducatorProfile("0675757575@gmail.com","Fares GHrr","GN02","Job test","0675757575"),"G02","الانانيش"
     )
-    /*val event1=Event("حضانة creche123 تهنئكم على ذكرى يوم العلم", arrayListOf("https://i.picsum.photos/id/716/200/300.jpg","https://i.picsum.photos/id/288/200/300.jpg","https://i.picsum.photos/id/852/200/300.jpg"),"16-04-2020","يوم العلم","01")
-    val event2=Event("حضانة creche123 تهنئكم على عيد الام", listOf(), """13-05-2020","عيد الام","02")
-    val meal1=Meal("حليب","meal menu","09:00")
+    val event1=Event("حضانة creche123 تهنئكم على ذكرى يوم العلم", arrayListOf("https://i.picsum.photos/id/716/200/300.jpg","https://i.picsum.photos/id/288/200/300.jpg","https://i.picsum.photos/id/852/200/300.jpg"),"16-04-2020","يوم العلم","01")
+    val event2=Event("حضانة creche123 تهنئكم على ذكرى يوم الأكل", arrayListOf("https://i.picsum.photos/id/716/200/300.jpg","https://i.picsum.photos/id/288/200/300.jpg","https://i.picsum.photos/id/852/200/300.jpg"),"16-04-2020","يوم العلم fff","01")
+    val event3=Event("حضانة creche123 تهنئكم على ذكرى عيد الحب", arrayListOf("https://i.picsum.photos/id/716/200/300.jpg","https://i.picsum.photos/id/288/200/300.jpg","https://i.picsum.photos/id/852/200/300.jpg"),"16-04-2020","يوم العلم fff","01")
+
+    /*val meal1=Meal("حليب","meal menu","09:00")
     val meal2=Meal("كروفات","meal menu","12:00")
     val meal3=Meal("حليب","meal menu","15:00")
     val other1=Other("description1","13:00","title")
@@ -103,8 +105,8 @@ object DataService {
             Year(listOf(month1,month2),"2020")))*/
 
     fun createDatabase() {
-        val monthsRef = database.child("creche123/years/2020/months/1/days/1/groups")
-
+        val events = database.child("creche123/events")
+        events.setValue(listOf(event1, event2, event3))
     }
 
     fun getSingleEvent(eventListener: FirebaseDataInterface): Event? {
@@ -143,22 +145,16 @@ object DataService {
         })
     }
 
-    fun getKidsGroupEvents(phone: String, events: (List<Event>) -> Unit) {
-        val sectionsRef = database.child("creche123/sections")
-        sectionsRef.addValueEventListener(object : ValueEventListener {
+    fun getKindergartenEvents(events: (List<Event>) -> Unit) {
+        val eventsRef = database.child("creche123/events")
+        eventsRef.addValueEventListener(object : ValueEventListener {
+            val eventList = mutableListOf<Event>()
             override fun onDataChange(p0: DataSnapshot) {
-                for (section in p0.children) {
-                    val sectionObject = section.getValue(Section::class.java)
-                    sectionObject!!.groups!!.forEach {grp ->
-                        val group = grp
-                        group.kids!!.forEach {kidAcnt ->
-                            val kidAccount = kidAcnt
-                            if (kidAccount.parent!!.loginAccount!!.user == "$phone@gmail.com") {
-                                events(group.events!!)
-                            }
-                        }
-                    }
+                for (event in p0.children) {
+                    val eventObject = event.getValue(Event::class.java)
+                    eventList.add(eventObject!!)
                 }
+                events(eventList)
             }
             override fun onCancelled(p0: DatabaseError) {
 

@@ -5,8 +5,7 @@ class Event(
     val eventPictures: List<String>,
     val eventDate: String,
     val eventTime: String,
-    val eventTitle: String,
-    val eventType: String
+    val eventTitle: String
 ) {
-    constructor(): this("", listOf(), "","", "", "")
+    constructor(): this("", listOf(), "","", "")
 }

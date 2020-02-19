@@ -46,7 +46,7 @@ class FoodFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        createNotificationChannel()
+        //createNotificationChannel()
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

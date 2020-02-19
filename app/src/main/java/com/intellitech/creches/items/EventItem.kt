@@ -1,6 +1,5 @@
 package com.intellitech.creches.items
 
-import android.util.Log
 import com.bumptech.glide.Glide
 import com.intellitech.creches.R
 import com.intellitech.creches.models.Event
@@ -26,7 +25,7 @@ class EventItem(private val event: Event) : Item() {
 
         Glide.with(viewHolder.root.context).load(R.drawable.avatar2).circleCrop().into(viewHolder.itemView.item_mail_avatar)
         // if the event date is > 1day we display the date, otherwise the time
-        val formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy", Locale.ENGLISH)
+        val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH)
         val date = LocalDate.parse(event.eventDate, formatter)
         val period = Period.between(date, LocalDate.now())
         if (period.days > 1) {

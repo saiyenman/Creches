@@ -5,6 +5,7 @@ import android.widget.Toast
 import com.google.firebase.database.*
 import com.intellitech.creches.interfaces.FirebaseDataInterface
 import com.intellitech.creches.items.HomeworkItem
+import com.intellitech.creches.items.PaymentItem
 import com.intellitech.creches.models.*
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -161,6 +162,47 @@ object DataService {
        val sessions = listOf(Session("قرأن كيما قال أمين","14:00","15:00"),Session("شرب الحليب كيما قال أمين","10:00","12:00"), Session("الرقاد كيما قال أمين","08:00","10:00"))
         val calendarRef = database.child("creche123/sections/0/groups/0/calendar/dimanche")
        calendarRef.setValue(sessions)
+    }
+
+
+    fun fetchTuitions(kid:KidAccount, resultPayments:(List<Payment>)->Unit){
+        val database = FirebaseDatabase.getInstance().reference
+        val tuitionsRef= database.child("creche123/accounts/kidsAccounts/"+kid.kidProfile!!.name+kid.kidProfile.lastName+"/payments")
+
+        tuitionsRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot) {
+                val adapter=GroupAdapter<GroupieViewHolder>()
+                val listPayments= mutableListOf<Payment>()
+                p0.children.forEach{
+                    val payment=it.getValue(Payment::class.java)
+                    if(payment!=null)
+                    {
+                        listPayments.add(payment)
+                    }
+                }
+                resultPayments(listPayments)
+            }
+            override fun onCancelled(p0: DatabaseError) {
+                Log.d("firebase", p0.message)
+            }
+        })
+    }
+
+    fun fetchMenu(date:String,resultMenu:(s:String,r:String,t:String)->Unit){
+        val database = FirebaseDatabase.getInstance().reference
+        val menuRef= database.child("creche123/menu/"+date)
+
+        menuRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot) {
+                val todaymenu=p0.getValue(DayMenu::class.java)
+                if (todaymenu != null) {
+                    resultMenu(todaymenu.meal1,todaymenu.meal2,todaymenu.meal3)
+                }
+            }
+            override fun onCancelled(p0: DatabaseError) {
+                Log.d("firebase", p0.message)
+            }
+        })
     }
 
 }

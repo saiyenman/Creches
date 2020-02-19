@@ -22,7 +22,10 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.intellitech.creches.MainActivity
 import com.intellitech.creches.R
+import com.intellitech.creches.items.PaymentItem
 import com.intellitech.creches.models.DayMenu
+import com.intellitech.creches.models.KidAccount
+import com.intellitech.creches.services.DataService
 import kotlinx.android.synthetic.main.fragment_food.*
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -32,17 +35,14 @@ import java.util.*
 class FoodFragment : Fragment() {
     lateinit var calendar_btn: Button
     lateinit var textview_day: TextView
-    lateinit var menu_rv: RecyclerView
+    lateinit var menu_item_meal1:TextView
+    lateinit var menu_item_meal2:TextView
+    lateinit var menu_item_meal3:TextView
 
 
     //-------------------------------
-    private var notificationManager: NotificationManager? = null
+    //private var notificationManager: NotificationManager? = null
     //--------------------------------------------------
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //createNotificationChannel()
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,15 +52,13 @@ class FoodFragment : Fragment() {
 
         calendar_btn=v.findViewById(R.id.calendar_btn)
         textview_day=v.findViewById(R.id.textview_day)
+        menu_item_meal1=v.findViewById(R.id.menu_item_meal1)
+        menu_item_meal2=v.findViewById(R.id.menu_item_meal2)
+        menu_item_meal3=v.findViewById(R.id.menu_item_meal3)
         val cal = Calendar.getInstance()
         val myFormat = "EEEE dd MMM yy"
-
-        // create an OnDateSetListener
-        // buttonDayteListener(cal,myFormat)
-        //sendNotification()
         today(myFormat)
         fetchMenu("Monday")
-        // create an OnDateSetListener
         buttonDayteListener(cal,myFormat)
         return v
     }
@@ -78,7 +76,6 @@ class FoodFragment : Fragment() {
                 val date = Date(year, monthOfYear, dayOfMonth - 1)
                 val dayString = simpleDateFormat.format(date)
                 fetchMenu(dayString)
-                //sendNotification()
                 updateDateInView(cal,myFormat)
 
             }
@@ -120,23 +117,12 @@ class FoodFragment : Fragment() {
     }
 
     //
-    private fun fetchMenu(date:String){
-        val database = FirebaseDatabase.getInstance().reference
-        val menuRef= database.child("creche123/menu/"+date)
-
-        menuRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot) {
-                val todaymenu=p0.getValue(DayMenu::class.java)
-                if (todaymenu != null) {
-                    menu_item_meal1.text = todaymenu.meal1
-                    menu_item_meal2.text = todaymenu.meal2
-                    menu_item_meal3.text = todaymenu.meal3
-                }
-            }
-            override fun onCancelled(p0: DatabaseError) {
-                Log.d("firebase", p0.message)
-            }
-        })
+    private fun fetchMenu(date:String) {
+        DataService.fetchMenu(date) { s, t, r ->
+            menu_item_meal1.text = s
+            menu_item_meal2.text = t
+            menu_item_meal3.text = r
+        }
     }
 
     /*fun sendNotification(){

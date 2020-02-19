@@ -1,24 +1,17 @@
 package com.intellitech.creches.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.intellitech.creches.R
-import com.intellitech.creches.items.HomeworkItem
 import com.intellitech.creches.items.PaymentItem
 import com.intellitech.creches.models.KidAccount
-import com.intellitech.creches.models.Payment
+import com.intellitech.creches.services.DataService
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-
 private const val ARG_KID = "kid"
 class TuitionsFragment : Fragment() {
 
@@ -46,29 +39,15 @@ class TuitionsFragment : Fragment() {
 
     }
 
-
-    private fun fetchTuitions(kid:KidAccount){
-        val database = FirebaseDatabase.getInstance().reference
-        val tuitionsRef= database.child("creche123/accounts/kidsAccounts/"+kid.kidProfile!!.name+kid.kidProfile.lastName+"/payments")
-
-        tuitionsRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot) {
-                val adapter=GroupAdapter<GroupieViewHolder>()
-                p0.children.forEach{
-                    val payment=it.getValue(Payment::class.java)
-                    if(payment!=null)
-                    {
-                            adapter.add(PaymentItem(payment))
-                    }
-                }
-                tuitions_rv.adapter=adapter
+    override fun onStart() {
+        super.onStart()
+        tuitions_rv.adapter = tuitionsAdapter
+        DataService.fetchTuitions(kid!!){ payments->
+            payments.forEach { payment ->
+                tuitionsAdapter.add(PaymentItem(payment))
             }
-            override fun onCancelled(p0: DatabaseError) {
-                Log.d("firebase", p0.message)
-            }
-        })
+        }
     }
-
     companion object {
         @JvmStatic
         fun newInstance(kidParam: KidAccount) =

@@ -1,12 +1,9 @@
 package com.intellitech.creches.models
 
 data class Session(
-    val sessionDescriotion: String,
-    val sessionTheme: String,
-    val sessionTiming: String,
-    val sessionTitle: String,
-    val sessionType: String,
-    val type: String
+    val sessionDescription: String,
+    val sessionStartTime: String,
+    val sessionEndTime: String
 ) {
-    constructor(): this("","","","","","")
+    constructor(): this("","","")
 }

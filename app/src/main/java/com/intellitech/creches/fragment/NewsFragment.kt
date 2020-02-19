@@ -19,7 +19,7 @@ import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.event_item.*
 import kotlinx.android.synthetic.main.fragment_news.*
 
-private const val ARG_PHONE = "phone"
+private const val ARG_KIDS = "phone"
 
 class NewsFragment : Fragment() {
     private var kids: ArrayList<KidAccount>? = null
@@ -35,7 +35,7 @@ class NewsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            kids = it.getParcelableArrayList(ARG_PHONE)
+            kids = it.getParcelableArrayList(ARG_KIDS)
         }
     }
 
@@ -54,7 +54,7 @@ class NewsFragment : Fragment() {
         fun newInstance(kidsParam: ArrayList<KidAccount>) =
             NewsFragment().apply {
                 arguments = Bundle().apply {
-                    putParcelableArrayList(ARG_PHONE, kidsParam as ArrayList<out Parcelable>?)
+                    putParcelableArrayList(ARG_KIDS, kidsParam as ArrayList<out Parcelable>?)
                 }
             }
     }

@@ -45,10 +45,6 @@ object DataService {
     val staffAccount1=StaffAccount(LoginAccount("12345","0675757575"),StaffProfile("0675757575@gmail.com","Fares Staff","0011","0675757575","CPA1"))
     val staffAccount2=StaffAccount(LoginAccount("12345","0666666666"),StaffProfile("0666666666@gmail.com","Nassima Staff","0012","0666666666","CPA2"))
 
-    val session1=Session("in this session kids are going to learn surat al naml","Quran","8:00-10:00","al naml","Quran","in this session kids are going to learn surat al naml")
-    val session2=Session("in this session kids are going to learn surat al naml","Quran","13:00-15:00","al kahf","Quran","in this session kids are going to learn surat al kahf")
-
-
     val groupeprofile1=GroupProfile("type 1",
         EducatorProfile("0675757575@gmail.com","Fares GHrr","GN01","Job test","0675757575"),"G01","القروش"
     )
@@ -140,7 +136,6 @@ object DataService {
                 kidsResult(kidsList)
             }
             override fun onCancelled(p0: DatabaseError) {
-
             }
         })
     }
@@ -162,7 +157,10 @@ object DataService {
         })
     }
 
-
-
+    fun insertCalendar() {
+       val sessions = listOf(Session("قرأن كيما قال أمين","14:00","15:00"),Session("شرب الحليب كيما قال أمين","10:00","12:00"), Session("الرقاد كيما قال أمين","08:00","10:00"))
+        val calendarRef = database.child("creche123/sections/0/groups/0/calendar/dimanche")
+       calendarRef.setValue(sessions)
+    }
 
 }

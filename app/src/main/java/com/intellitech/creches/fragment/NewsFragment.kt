@@ -39,8 +39,8 @@ class NewsFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         news_rv.adapter = eventAdapter
         DataService.getKindergartenEvents { events ->
             events.forEach { event ->

@@ -64,7 +64,7 @@ class FoodFragment : Fragment() {
 
         // create an OnDateSetListener
         // buttonDayteListener(cal,myFormat)
-        sendNotification()
+        //sendNotification()
         today(myFormat)
         fetchMenu("Monday")
         // create an OnDateSetListener
@@ -85,7 +85,7 @@ class FoodFragment : Fragment() {
                 val date = Date(year, monthOfYear, dayOfMonth - 1)
                 val dayString = simpleDateFormat.format(date)
                 fetchMenu(dayString)
-                sendNotification()
+                //sendNotification()
                 updateDateInView(cal,myFormat)
 
             }
@@ -147,7 +147,7 @@ class FoodFragment : Fragment() {
         })
     }
 
-    fun sendNotification(){
+    /*fun sendNotification(){
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
@@ -167,7 +167,7 @@ class FoodFragment : Fragment() {
             // notificationId is a unique int for each notification that you must define
             notify(0, builder.build())
         }
-    }
+    }*/
 
 
 }

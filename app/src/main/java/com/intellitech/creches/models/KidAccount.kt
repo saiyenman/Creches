@@ -11,7 +11,7 @@ data class KidAccount(
     val group: String,
     val kidProfile: @RawValue KidProfile?,
     val parent: @RawValue Parent?,
-    val paiments: @RawValue List<Paiment>?
+    val payments: @RawValue List<Payment>?
 ) : Parcelable {
-    constructor(): this(null,"","", null, null, null)
+    constructor(): this(null,"","", null, null, listOf())
 }

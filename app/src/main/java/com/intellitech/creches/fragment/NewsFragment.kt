@@ -49,6 +49,11 @@ class NewsFragment : Fragment() {
         }
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        eventAdapter.clear()
+    }
+
     companion object {
         @JvmStatic
         fun newInstance(kidsParam: ArrayList<KidAccount>) =

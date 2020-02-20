@@ -15,7 +15,7 @@ import com.xwray.groupie.GroupieViewHolder
 private const val ARG_KID = "kid"
 class TuitionsFragment : Fragment() {
 
-    private var kid:KidAccount?=null
+    private var kid:KidAccount? = null
     lateinit var tuitions_rv: RecyclerView
     val tuitionsAdapter = GroupAdapter<GroupieViewHolder>()
     override fun onCreateView(

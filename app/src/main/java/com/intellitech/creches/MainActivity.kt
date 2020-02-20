@@ -20,9 +20,9 @@ import com.intellitech.creches.utils.PARENT_PHONE_EXTRA
 import com.intellitech.creches.utils.PARENT_PHONE_PREF
 import com.intellitech.creches.utils.SHARED_PREF_NAME
 import android.os.Build
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.content_main.*
+
+
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -133,40 +133,27 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             foodFragment = FoodFragment()
             homeworkFragment = HomeworkFragment()
             tuitionsFragment = TuitionsFragment.newInstance(currentKid)
-            calendarFragment = CalendarFragment.newInstance(currentKid)
+            calendarFragment = CalendarFragment.newInstance(currentKid, ArrayList(kids))
             initContent()
         }
-        change_kid_btn.setOnClickListener {
-            showKidsDialog()
-        }
     }
 
-    fun showKidsDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Choose a kid")
-        val dialogKids = arrayOfNulls<String>(kids.size)
-        var i = 0
-        kids.forEach {
-            dialogKids[i] = it.kidProfile?.name + it.kidProfile?.lastName
-            i++
-        }
-        builder.setItems(dialogKids) { dialog, which ->
-            when (which) {
-                0 -> { currentKid = kids[0] }
-                1 -> { currentKid = kids[1] }
-                2 -> { currentKid = kids[2] }
-            }
-        }
-        val dialog = builder.create()
-        dialog.show()
-    }
 
-    fun initContent() {
+
+    private fun initContent() {
         fragmentManager.beginTransaction().add(R.id.content_frame, newsFragment!!, "news").commit()
         fragmentManager.beginTransaction().add(R.id.content_frame, foodFragment!!, "food").hide(foodFragment!!).commit()
         fragmentManager.beginTransaction().add(R.id.content_frame, homeworkFragment!!, "homework").hide(homeworkFragment!!).commit()
         fragmentManager.beginTransaction().add(R.id.content_frame, tuitionsFragment!!, "tuition").hide(tuitionsFragment!!).commit()
         fragmentManager.beginTransaction().add(R.id.content_frame, calendarFragment!!, "calendar").hide(calendarFragment!!).commit()
         currentFragment = newsFragment
+    }
+
+    private fun refreshCurrentFragment() {
+        val ft = fragmentManager.beginTransaction()
+        ft.remove(homeworkFragment!!).add(R.id.content_frame,homeworkFragment!!, "homework").hide(homeworkFragment!!)
+        ft.remove(tuitionsFragment!!).add(R.id.content_frame,tuitionsFragment!!, "tuition").hide(tuitionsFragment!!)
+        ft.remove(calendarFragment!!).add(R.id.content_frame,calendarFragment!!, "calendar").hide(calendarFragment!!)
+        ft.commit()
     }
 }

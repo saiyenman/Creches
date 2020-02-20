@@ -1,10 +1,12 @@
 package com.intellitech.creches.fragment
 
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.intellitech.creches.R
 import com.intellitech.creches.items.PaymentItem
@@ -13,47 +15,78 @@ import com.intellitech.creches.services.DataService
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 private const val ARG_KID = "kid"
+private const val ARG_KIDS = "kids"
 class TuitionsFragment : Fragment() {
 
     private var kid:KidAccount? = null
     lateinit var tuitions_rv: RecyclerView
     val tuitionsAdapter = GroupAdapter<GroupieViewHolder>()
+
+    private var currentkid: KidAccount? = null
+    private var kids: List<KidAccount>? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val v= inflater.inflate(R.layout.fragment_tuitions, container, false)
-
-        tuitions_rv=v.findViewById(R.id.tuitions_rv)
-        tuitions_rv.adapter = tuitionsAdapter
-        return v
-
+        return inflater.inflate(R.layout.fragment_tuitions, container, false)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            kid = it.getParcelable(ARG_KID)
+            currentkid = it.getParcelable(ARG_KID)
+            kids = it.getParcelableArrayList(ARG_KIDS)
         }
-
-
     }
 
     override fun onStart() {
         super.onStart()
         tuitions_rv.adapter = tuitionsAdapter
+        fetchTuitions()
+    }
+    private fun fetchTuitions(){
         DataService.fetchTuitions(kid!!){ payments->
             payments.forEach { payment ->
                 tuitionsAdapter.add(PaymentItem(payment))
             }
         }
     }
+    fun showKidsDialog() {
+        val builder = AlertDialog.Builder(activity!!)
+        builder.setTitle("Choose a kid")
+        val dialogKids = arrayOfNulls<String>(kids!!.size)
+        var i = 0
+        kids!!.forEach {
+            dialogKids[i] = it.kidProfile?.name + it.kidProfile?.lastName
+            i++
+        }
+        builder.setItems(dialogKids) { dialog, which ->
+            when (which) {
+                0 -> {
+                    currentkid = kids!![0]
+                    fetchTuitions()
+                }
+                1 -> {
+                    currentkid = kids!![1]
+                    fetchTuitions()
+                }
+                2 -> {
+                    currentkid = kids!![2]
+                    fetchTuitions()
+                }
+            }
+        }
+        val dialog = builder.create()
+        dialog.show()
+    }
     companion object {
         @JvmStatic
-        fun newInstance(kidParam: KidAccount) =
+        fun newInstance(kidParam: KidAccount, kidsParam: ArrayList<KidAccount>) =
             TuitionsFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(ARG_KID, kidParam)
+                    putParcelableArrayList(ARG_KIDS, kidsParam as ArrayList<out Parcelable>?)
                 }
             }
     }

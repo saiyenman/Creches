@@ -1,28 +1,28 @@
 package com.intellitech.creches.fragment
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.intellitech.creches.R
 import com.intellitech.creches.items.HomeworkItem
-import com.intellitech.creches.models.Other
+import com.intellitech.creches.models.KidAccount
 import com.intellitech.creches.services.DataService
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-
+import kotlinx.android.synthetic.main.fragment_calendar.*
+private const val ARG_KID = "kid"
+private const val ARG_KIDS = "kids"
 class HomeworkFragment : Fragment() {
-    private var kid:String?=null
     lateinit var homework_rv:RecyclerView
     val homeworkAdapter = GroupAdapter<GroupieViewHolder>()
-
+    private var currentkid: KidAccount? = null
+    private var kids: List<KidAccount>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,52 +31,70 @@ class HomeworkFragment : Fragment() {
 
         // Inflate the layout for this fragment
         val v =inflater.inflate(R.layout.fragment_homework, container, false)
-        homework_rv=v.findViewById(R.id.homework_rv)
-        homework_rv.adapter = homeworkAdapter
-
-/*        val event = DataService.getSingleEvent(object : FirebaseDataInterface {
-            override fun onHomeworkDataFetched(homework: Other) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onEventDataFetched(event: Event) {
-                homeworkAdapter.add(EventItem(event))
-                Log.d("firenase", event.eventDescription)
-            }
-        })*/
-        fetchHomworks()
         return v
+    }
+
+    override fun onStart() {
+        super.onStart()
+        homework_rv.adapter = homeworkAdapter
+        change_kid_btn.setOnClickListener {
+            showKidsDialog()
+        }
+        fetchHomeworks()
+    }
+    private fun fetchHomeworks(){
+
+        DataService.fetchHomworks(currentkid!!){ homeworks->
+            homeworks.forEach { homework ->
+                homeworkAdapter.add(HomeworkItem(homework))
+            }
+        }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            kid = it.getString("kidid")
+            currentkid = it.getParcelable(ARG_KID)
+            kids = it.getParcelableArrayList(ARG_KIDS)
         }
-
-
     }
-    private fun fetchHomworks(){
-        val database = FirebaseDatabase.getInstance().reference
-        val homeworkRef= database.child("creche123/sections/0/groups/0/other")
-
-        homeworkRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot) {
-                val adapter=GroupAdapter<GroupieViewHolder>()
-                p0.children.forEach{
-                    val homewrk=it.getValue(Other::class.java)
-                    if(homewrk!=null)
-                    {
-                        if(homewrk.to.contains("islem")){
-                            adapter.add(HomeworkItem(homewrk))
-                        }
-                    }
+    fun showKidsDialog() {
+        val builder = AlertDialog.Builder(activity!!)
+        builder.setTitle("Choose a kid")
+        val dialogKids = arrayOfNulls<String>(kids!!.size)
+        var i = 0
+        kids!!.forEach {
+            dialogKids[i] = it.kidProfile?.name + it.kidProfile?.lastName
+            i++
+        }
+        builder.setItems(dialogKids) { dialog, which ->
+            when (which) {
+                0 -> {
+                    currentkid = kids!![0]
+                    fetchHomeworks()
                 }
-                homework_rv.adapter=adapter
+                1 -> {
+                    currentkid = kids!![1]
+                    fetchHomeworks()
+                }
+                2 -> {
+                    currentkid = kids!![2]
+                    fetchHomeworks()
+                }
             }
-            override fun onCancelled(p0: DatabaseError) {
-                Log.d("firebase", p0.message)
-            }
-        })
+        }
+        val dialog = builder.create()
+        dialog.show()
     }
 
+
+    companion object {
+        @JvmStatic
+        fun newInstance(kidParam: KidAccount, kidsParam: ArrayList<KidAccount>) =
+            HomeworkFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(ARG_KID, kidParam)
+                    putParcelableArrayList(ARG_KIDS, kidsParam as ArrayList<out Parcelable>?)
+                }
+            }
+    }
 }

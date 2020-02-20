@@ -155,6 +155,18 @@
         </androidx.cardview.widget.CardView>
     </androidx.gridlayout.widget.GridLayout>-->
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/change_kid_btn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        app:backgroundTint="#258891"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_swap_horiz_black_24dp" />
+
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="0dp"
@@ -194,12 +206,11 @@
         android:id="@+id/tuitions_rv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout3"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

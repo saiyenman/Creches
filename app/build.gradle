@@ -57,4 +57,6 @@ dependencies {
     // Date picker
     implementation 'com.vivekkaushik.datepicker:datePickerTimeline:0.0.4'
     implementation  'com.dialog:plus:4+'
+    implementation 'androidx.work:work-runtime:2.3.2'
+    implementation 'com.google.firebase:firebase-messaging:20.1.0'
 }

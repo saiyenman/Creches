@@ -182,7 +182,6 @@ object DataService {
 
         tuitionsRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
-                val adapter=GroupAdapter<GroupieViewHolder>()
                 val listPayments= mutableListOf<Payment>()
                 p0.children.forEach{
                     val payment=it.getValue(Payment::class.java)
@@ -209,6 +208,29 @@ object DataService {
                 if (todaymenu != null) {
                     resultMenu(todaymenu.meal1,todaymenu.meal2,todaymenu.meal3)
                 }
+            }
+            override fun onCancelled(p0: DatabaseError) {
+                Log.d("firebase", p0.message)
+            }
+        })
+    }
+
+    fun fetchHomworks(kid:KidAccount,resultHomeworks:(List<Other>)->Unit){
+        val database = FirebaseDatabase.getInstance().reference
+        val homeworkRef= database.child("creche123/sections/${kid.section}/groups/${kid.group}/other")
+        homeworkRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot) {
+                val listHomeworks= mutableListOf<Other>()
+                p0.children.forEach{
+                    val homewrk=it.getValue(Other::class.java)
+                    if(homewrk!=null)
+                    {
+                        if(homewrk.to.contains(kid.kidProfile!!.id)){
+                            listHomeworks.add(homewrk)
+                        }
+                    }
+                }
+                resultHomeworks(listHomeworks)
             }
             override fun onCancelled(p0: DatabaseError) {
                 Log.d("firebase", p0.message)

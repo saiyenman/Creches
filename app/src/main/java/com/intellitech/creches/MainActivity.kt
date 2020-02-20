@@ -46,16 +46,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "KidTech Channel"
-            val descriptionText = ""
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel("0", name, importance).apply {
-                description = descriptionText
-            }
-            // Register the channel with the system
-            val notificationManager: NotificationManager =
-                this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
+            // Create channel to show notifications.
+            val channelId = getString(R.string.default_notification_channel_id)
+            val channelName = "parent"
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager?.createNotificationChannel(NotificationChannel(channelId,
+                channelName, NotificationManager.IMPORTANCE_LOW))
         }
     }
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -131,8 +127,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             //  first fragment to launch -> News Fragment
             newsFragment = NewsFragment.newInstance(ArrayList(kids))
             foodFragment = FoodFragment()
-            homeworkFragment = HomeworkFragment()
-            tuitionsFragment = TuitionsFragment.newInstance(currentKid)
+            homeworkFragment = HomeworkFragment.newInstance(currentKid, ArrayList(kids))
+            tuitionsFragment = TuitionsFragment.newInstance(currentKid, ArrayList(kids))
             calendarFragment = CalendarFragment.newInstance(currentKid, ArrayList(kids))
             initContent()
         }

@@ -99,7 +99,7 @@ class CalendarFragment : Fragment() {
         val dialog = builder.create()
         dialog.show()
     }
-
+//
     companion object {
         @JvmStatic
         fun newInstance(kidParam: KidAccount, kidsParam: ArrayList<KidAccount>) =

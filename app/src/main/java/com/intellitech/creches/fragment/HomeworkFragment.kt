@@ -16,10 +16,12 @@ import com.intellitech.creches.services.DataService
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_calendar.*
+import kotlinx.android.synthetic.main.fragment_calendar.change_kid_btn
+import kotlinx.android.synthetic.main.fragment_homework.*
+
 private const val ARG_KID = "kid"
 private const val ARG_KIDS = "kids"
 class HomeworkFragment : Fragment() {
-    lateinit var homework_rv:RecyclerView
     val homeworkAdapter = GroupAdapter<GroupieViewHolder>()
     private var currentkid: KidAccount? = null
     private var kids: List<KidAccount>? = null
@@ -37,19 +39,12 @@ class HomeworkFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         homework_rv.adapter = homeworkAdapter
+        fetchHomeworks()
         change_kid_btn.setOnClickListener {
             showKidsDialog()
         }
-        fetchHomeworks()
     }
-    private fun fetchHomeworks(){
 
-        DataService.fetchHomworks(currentkid!!){ homeworks->
-            homeworks.forEach { homework ->
-                homeworkAdapter.add(HomeworkItem(homework))
-            }
-        }
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -84,6 +79,15 @@ class HomeworkFragment : Fragment() {
         }
         val dialog = builder.create()
         dialog.show()
+    }
+
+    private fun fetchHomeworks(){
+        homeworkAdapter.clear()
+        DataService.fetchHomworks(currentkid!!){ homeworks->
+            homeworks.forEach { homework ->
+                homeworkAdapter.add(HomeworkItem(homework))
+            }
+        }
     }
 
 

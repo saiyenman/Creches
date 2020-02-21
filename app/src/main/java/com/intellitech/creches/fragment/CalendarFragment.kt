@@ -13,7 +13,6 @@ import com.intellitech.creches.R
 import com.intellitech.creches.items.CalendarDayItem
 import com.intellitech.creches.items.SessionItem
 import com.intellitech.creches.models.KidAccount
-import com.intellitech.creches.models.Session
 import com.intellitech.creches.services.DataService
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder

@@ -17,14 +17,13 @@ import com.google.firebase.messaging.RemoteMessage
 import com.intellitech.creches.MainActivity
 import com.intellitech.creches.R
 
-class MyFirebaseMessagingService : FirebaseMessagingService() {
+class FirebaseMessagingService : FirebaseMessagingService() {
 
     /**
      * Called when message is received.
      *
      * @param remoteMessage Object representing the message received from Firebase Cloud Messaging.
      */
-    // [START receive_message]
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         // [START_EXCLUDE]
         // There are two types of messages data messages and notification messages. Data messages are handled
@@ -61,9 +60,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
     }
-    // [END receive_message]
 
-    // [START on_new_token]
     /**
      * Called if InstanceID token is updated. This may occur if the security of
      * the previous token had been compromised. Note that this is called when the InstanceID token
@@ -77,7 +74,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // Instance ID token to your app server.
         sendRegistrationToServer(token)
     }
-    // [END on_new_token]
+
 
     /**
      * Schedule async work using WorkManager.
@@ -105,8 +102,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      * @param token The new token.
      */
     private fun sendRegistrationToServer(token: String?) {
-        // TODO: Implement this method to send token to your app server.
-        Log.d(TAG, "sendRegistrationTokenToServer($token)")
+
     }
 
     /**
@@ -144,7 +140,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     companion object {
-
-        private const val TAG = "MyFirebaseMsgService"
+        private const val TAG = "FirebaseMsgService"
     }
 }

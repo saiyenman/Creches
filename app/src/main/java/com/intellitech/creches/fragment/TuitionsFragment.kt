@@ -14,12 +14,13 @@ import com.intellitech.creches.models.KidAccount
 import com.intellitech.creches.services.DataService
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import kotlinx.android.synthetic.main.fragment_tuitions.*
+
 private const val ARG_KID = "kid"
 private const val ARG_KIDS = "kids"
 class TuitionsFragment : Fragment() {
 
     private var kid:KidAccount? = null
-    lateinit var tuitions_rv: RecyclerView
     val tuitionsAdapter = GroupAdapter<GroupieViewHolder>()
 
     private var currentkid: KidAccount? = null
@@ -44,14 +45,11 @@ class TuitionsFragment : Fragment() {
         super.onStart()
         tuitions_rv.adapter = tuitionsAdapter
         fetchTuitions()
-    }
-    private fun fetchTuitions(){
-        DataService.fetchTuitions(kid!!){ payments->
-            payments.forEach { payment ->
-                tuitionsAdapter.add(PaymentItem(payment))
-            }
+        change_kid_btn.setOnClickListener {
+            showKidsDialog()
         }
     }
+
     fun showKidsDialog() {
         val builder = AlertDialog.Builder(activity!!)
         builder.setTitle("Choose a kid")
@@ -80,6 +78,16 @@ class TuitionsFragment : Fragment() {
         val dialog = builder.create()
         dialog.show()
     }
+
+    private fun fetchTuitions(){
+        tuitionsAdapter.clear()
+        DataService.fetchTuitions(currentkid!!){ payments->
+            payments.forEach { payment ->
+                tuitionsAdapter.add(PaymentItem(payment))
+            }
+        }
+    }
+
     companion object {
         @JvmStatic
         fun newInstance(kidParam: KidAccount, kidsParam: ArrayList<KidAccount>) =

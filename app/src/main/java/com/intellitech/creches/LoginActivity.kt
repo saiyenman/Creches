@@ -37,9 +37,6 @@ class LoginActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         // Just setting the toolbar title
-        setSupportActionBar(toolbar)
-        toolbar.setTitleTextColor(resources.getColor(R.color.whiteColor))
-        supportActionBar?.title = "Espace parent"
         loginBtn.setOnClickListener {
             performLogin()
         }

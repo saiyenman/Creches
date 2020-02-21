@@ -76,7 +76,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
     }
 
 
-    /**
+    /***
      * Schedule async work using WorkManager.
      */
     private fun scheduleJob() {

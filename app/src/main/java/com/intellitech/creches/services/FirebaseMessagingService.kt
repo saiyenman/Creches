@@ -9,7 +9,6 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -23,7 +22,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
      * Called when message is received.
      *
      * @param remoteMessage Object representing the message received from Firebase Cloud Messaging.
-     */
+     **/
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         // [START_EXCLUDE]
         // There are two types of messages data messages and notification messages. Data messages are handled
@@ -74,7 +73,6 @@ class FirebaseMessagingService : FirebaseMessagingService() {
         // Instance ID token to your app server.
         sendRegistrationToServer(token)
     }
-
 
     /***
      * Schedule async work using WorkManager.

@@ -8,21 +8,22 @@
     tools:context=".LoginActivity">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="120dp"
+        android:id="@+id/imageView5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo-creche" />
+        app:srcCompat="@drawable/background_creche" />
 
     <EditText
         android:id="@+id/login_phone"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="120dp"
         android:background="@drawable/login_activity_username"
         android:ems="10"
         android:fontFamily="@font/montserrat"
@@ -30,9 +31,11 @@
         android:inputType="phone"
         android:maxLength="10"
         android:padding="8dp"
+        android:textColor="@color/inputTextColor"
+        android:textColorHint="@color/inputTextColor"
         app:layout_constraintEnd_toEndOf="@+id/login_password"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
     <EditText
         android:id="@+id/login_password"
@@ -48,6 +51,8 @@
         android:inputType="number"
         android:maxLength="6"
         android:padding="8dp"
+        android:textColor="@color/inputTextColor"
+        android:textColorHint="@color/inputTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +63,7 @@
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/metapro"
         android:paddingLeft="10dp"
@@ -75,5 +80,16 @@
         app:lb_isShadowEnable="true"
         app:lb_shadowColor="#ccc"
         app:lb_shadowHeight="5dp" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="56dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_creche" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

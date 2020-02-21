@@ -40,6 +40,7 @@ class LoginActivity : AppCompatActivity() {
         loginBtn.setOnClickListener {
             performLogin()
         }
+        loginBtn.shadowHeight = 2
     }
 
     private fun performLogin() {

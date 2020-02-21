@@ -7,6 +7,7 @@
     <color name="blueBackground">#DCECF3</color>
     <color name="greenBackground">#CDE2AE</color>
     <color name="greenDark">#2E5336</color>
+    <color name="inputTextColor">#CCC</color>
 
 
 </resources>

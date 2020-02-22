@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_news"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/ic_journal"
         android:title="@string/news"/>
     <item
         android:id="@+id/nav_events"
@@ -25,6 +25,7 @@
         android:icon="@drawable/tuition"
         android:title="@string/tuitions"/>
     <item
-        android:id="@+id/nav_signout"
-        android:title="@string/signout"/>
+        android:id="@+id/nav_health"
+        android:icon="@drawable/ic_heart"
+        android:title="@string/health"/>
 </menu>

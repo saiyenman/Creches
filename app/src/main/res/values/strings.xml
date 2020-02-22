@@ -23,6 +23,7 @@
     <string name="meal1">Breakfast</string>
     <string name="meal2">Lunch</string>
     <string name="meal3">Snack</string>
+    <string name="health">Health</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
 
 </resources>

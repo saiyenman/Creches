@@ -149,12 +149,4 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fragmentManager.beginTransaction().add(R.id.content_frame, calendarFragment!!, "calendar").hide(calendarFragment!!).commit()
         currentFragment = newsFragment
     }
-
-    private fun refreshCurrentFragment() {
-        val ft = fragmentManager.beginTransaction()
-        ft.remove(homeworkFragment!!).add(R.id.content_frame,homeworkFragment!!, "homework").hide(homeworkFragment!!)
-        ft.remove(tuitionsFragment!!).add(R.id.content_frame,tuitionsFragment!!, "tuition").hide(tuitionsFragment!!)
-        ft.remove(calendarFragment!!).add(R.id.content_frame,calendarFragment!!, "calendar").hide(calendarFragment!!)
-        ft.commit()
-    }
 }

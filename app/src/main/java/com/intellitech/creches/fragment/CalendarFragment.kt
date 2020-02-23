@@ -36,7 +36,6 @@ class CalendarFragment : Fragment() {
             currentkid = it.getParcelable(ARG_KID)
             kids = it.getParcelableArrayList(ARG_KIDS)
         }
-        Log.d("zaza", kids?.size.toString())
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment

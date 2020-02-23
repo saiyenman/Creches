@@ -110,9 +110,8 @@ class FoodFragment : Fragment() {
             fetchMenu(SimpleDateFormat("EEEE", Locale.ENGLISH).format(date))
 
         }
-
-
     }
+
     private fun updateDateInView(cal: Calendar, myFormat: String) {
         // mention the format you need
         val sdf = SimpleDateFormat(myFormat, Locale.FRENCH)

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.intellitech.creches.R
 import com.intellitech.creches.models.News
-import kotlinx.android.synthetic.main.newsitem.view.*
+import kotlinx.android.synthetic.main.news_item.view.*
 
 class NewsAdapter(var newsList : ArrayList<News>): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     fun updateNews(newUsers: List<News>) {
@@ -30,7 +30,7 @@ class NewsAdapter(var newsList : ArrayList<News>): RecyclerView.Adapter<NewsAdap
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.newsitem, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.news_item, parent, false)
         return NewsViewHolder(v)
     }
     override fun getItemCount(): Int {

@@ -31,18 +31,7 @@ import java.util.*
 
 class FoodFragment : Fragment() {
     lateinit var calendar_btn: Button
-    lateinit var textview_day: TextView
-    lateinit var menu_rv: RecyclerView
 
-
-    //-------------------------------
-    private var notificationManager: NotificationManager? = null
-    //--------------------------------------------------
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //createNotificationChannel()
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,14 +40,11 @@ class FoodFragment : Fragment() {
         val v= inflater.inflate(R.layout.fragment_food, container, false)
 
         calendar_btn=v.findViewById(R.id.calendar_btn)
-        textview_day=v.findViewById(R.id.textview_day)
         val cal = Calendar.getInstance()
         val myFormat = "EEEE dd MMM yy"
 
         // create an OnDateSetListener
         // buttonDayteListener(cal,myFormat)
-        sendNotification()
-        today(myFormat)
         fetchMenu("Monday")
         // create an OnDateSetListener
         buttonDayteListener(cal,myFormat)
@@ -79,8 +65,6 @@ class FoodFragment : Fragment() {
                 val dayString = simpleDateFormat.format(date)
                 fetchMenu(dayString)
                 sendNotification()
-                updateDateInView(cal,myFormat)
-
             }
         }
         calendar_btn.setOnClickListener {
@@ -92,30 +76,6 @@ class FoodFragment : Fragment() {
                 cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH)).show()
         }
-    }
-
-    private fun today(myFormat: String) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val current = LocalDateTime.now()
-            val formatter = DateTimeFormatter.ofPattern(myFormat, Locale.ENGLISH)
-            //Toast.makeText(context,current.format(formatter),Toast.LENGTH_SHORT).show()
-            textview_day.text =  current.format(formatter)
-            fetchMenu(current.format(DateTimeFormatter.ofPattern("EEEE", Locale.ENGLISH)))
-
-        } else {
-            val date = Date()
-            val formatter = SimpleDateFormat(myFormat)
-            Toast.makeText(context,formatter.format(date), Toast.LENGTH_SHORT).show()
-            textview_day.text  = formatter.format(date)
-            fetchMenu(SimpleDateFormat("EEEE", Locale.ENGLISH).format(date))
-
-        }
-    }
-
-    private fun updateDateInView(cal: Calendar, myFormat: String) {
-        // mention the format you need
-        val sdf = SimpleDateFormat(myFormat, Locale.FRENCH)
-        textview_day.text = sdf.format(cal.time)
     }
 
     //

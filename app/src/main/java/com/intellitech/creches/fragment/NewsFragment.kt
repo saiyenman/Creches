@@ -24,7 +24,6 @@ private const val ARG_KIDS = "phone"
 class NewsFragment : Fragment() {
     private var kids: ArrayList<KidAccount>? = null
     private val eventAdapter = GroupAdapter<GroupieViewHolder>()
-    lateinit var item_mail_avatar:ImageView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v =inflater.inflate(R.layout.fragment_news, container, false)
@@ -39,8 +38,8 @@ class NewsFragment : Fragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         news_rv.adapter = eventAdapter
         DataService.getKindergartenEvents { events ->
             events.forEach { event ->

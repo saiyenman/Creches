@@ -83,7 +83,7 @@ class HomeworkFragment : Fragment() {
 
     private fun fetchHomeworks(){
         homeworkAdapter.clear()
-        DataService.fetchHomworks(currentkid!!){ homeworks->
+        DataService.fetchHomeworks(currentkid!!){ homeworks->
             homeworks.forEach { homework ->
                 homeworkAdapter.add(HomeworkItem(homework))
             }

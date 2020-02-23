@@ -1,8 +1,5 @@
 package com.intellitech.creches
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,10 +16,7 @@ import com.intellitech.creches.services.DataService
 import com.intellitech.creches.utils.PARENT_PHONE_EXTRA
 import com.intellitech.creches.utils.PARENT_PHONE_PREF
 import com.intellitech.creches.utils.SHARED_PREF_NAME
-import android.os.Build
-import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.event_item.view.*
 import kotlinx.android.synthetic.main.nav_header.*
 
 
@@ -34,52 +28,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var navView: NavigationView
     lateinit var kids: List<KidAccount>
     lateinit var currentKid: KidAccount
-    private val fragmentManager = supportFragmentManager
-    // Fragments
-    private var newsFragment: Fragment? = null
-    private var foodFragment: Fragment? = null
-    private var homeworkFragment: Fragment? = null
-    private var tuitionsFragment: Fragment? = null
-    private var calendarFragment: Fragment? = null
-    private var currentFragment: Fragment? = newsFragment
 
-    private fun createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // Create channel to show notifications.
-            val channelId = getString(R.string.default_notification_channel_id)
-            val channelName = "parent"
-            val notificationManager = getSystemService(NotificationManager::class.java)
-            notificationManager?.createNotificationChannel(NotificationChannel(channelId,
-                channelName, NotificationManager.IMPORTANCE_LOW))
-        }
-    }
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_news -> {
-                fragmentManager.beginTransaction().hide(currentFragment!!).show(newsFragment!!).commit()
-                currentFragment = newsFragment
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, NewsFragment.newInstance(ArrayList(kids))).commit()
             }
             R.id.nav_events -> {
-                fragmentManager.beginTransaction().hide(currentFragment!!).show(newsFragment!!).commit()
-                currentFragment = newsFragment
             }
             R.id.nav_food -> {
-                fragmentManager.beginTransaction().hide(currentFragment!!).show(foodFragment!!).commit()
-                currentFragment = foodFragment
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, FoodFragment()).commit()
             }
             R.id.nav_homework -> {
-                fragmentManager.beginTransaction().hide(currentFragment!!).show(homeworkFragment!!).commit()
-                currentFragment = homeworkFragment
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, HomeworkFragment.newInstance(currentKid, ArrayList(kids))).commit()
             }
             R.id.nav_tuitions -> {
-                fragmentManager.beginTransaction().hide(currentFragment!!).show(tuitionsFragment!!).commit()
-                currentFragment = tuitionsFragment
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, TuitionsFragment.newInstance(currentKid, ArrayList(kids))).commit()
             }
             R.id.nav_callendar -> {
-                fragmentManager.beginTransaction().hide(currentFragment!!).show(calendarFragment!!).commit()
-                currentFragment = calendarFragment
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, CalendarFragment.newInstance(currentKid, ArrayList(kids))).commit()
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
@@ -103,7 +75,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else {
             phone = getSharedPreferences(SHARED_PREF_NAME, 0).getString(PARENT_PHONE_PREF, "")!!
         }
-        createNotificationChannel()
 
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -118,6 +89,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
         navView.itemIconTintList = null
+
+        val firstFragment = NewsFragment()
+        val transaction = supportFragmentManager.beginTransaction().apply {
+            // Replace whatever is in the fragment_container view with this fragment,
+            // and add the transaction to the back stack so the user can navigate back
+            replace(R.id.content_frame, firstFragment)
+            addToBackStack(null)
+        }
+        // Commit the transaction
+        transaction.commit()
     }
 
     override fun onStart() {
@@ -125,28 +106,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         DataService.getParentKids(phone) {  kidsResult ->
             kids = kidsResult
             currentKid = kidsResult[0]
-            //  first fragment to launch -> News Fragment
-            newsFragment = NewsFragment.newInstance(ArrayList(kids))
-            foodFragment = FoodFragment()
-            homeworkFragment = HomeworkFragment.newInstance(currentKid, ArrayList(kids))
-            tuitionsFragment = TuitionsFragment.newInstance(currentKid, ArrayList(kids))
-            calendarFragment = CalendarFragment.newInstance(currentKid, ArrayList(kids))
             Glide.with(this).load(R.drawable.baby).circleCrop().into(nav_profile)
             studentName.text=currentKid.kidProfile!!.lastName
             studentClass.text="Section:"+currentKid.section+" Groupe:"+currentKid.group+"."
-
-            initContent()
         }
-    }
-
-
-
-    private fun initContent() {
-        fragmentManager.beginTransaction().add(R.id.content_frame, newsFragment!!, "news").commit()
-        fragmentManager.beginTransaction().add(R.id.content_frame, foodFragment!!, "food").hide(foodFragment!!).commit()
-        fragmentManager.beginTransaction().add(R.id.content_frame, homeworkFragment!!, "homework").hide(homeworkFragment!!).commit()
-        fragmentManager.beginTransaction().add(R.id.content_frame, tuitionsFragment!!, "tuition").hide(tuitionsFragment!!).commit()
-        fragmentManager.beginTransaction().add(R.id.content_frame, calendarFragment!!, "calendar").hide(calendarFragment!!).commit()
-        currentFragment = newsFragment
     }
 }

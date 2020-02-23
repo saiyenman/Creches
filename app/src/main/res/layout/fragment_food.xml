@@ -97,8 +97,9 @@
                 app:srcCompat="@drawable/petitdejeuner" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
@@ -132,8 +133,9 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="274dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
@@ -183,6 +185,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView

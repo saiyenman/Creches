@@ -5,11 +5,12 @@
     android:id="@+id/event_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="2dp"
-    android:layout_marginBottom="2dp"
     android:layout_marginStart="4dp"
+    android:layout_marginTop="2dp"
     android:layout_marginEnd="4dp"
+    android:layout_marginBottom="2dp"
     android:background="@android:color/white"
+    android:elevation="2dp"
     android:foreground="?android:attr/selectableItemBackground">
 
 
@@ -20,6 +21,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
 
+        android:background="@drawable/profileshape"
+        android:elevation="2dp"
+        android:padding="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -28,11 +32,12 @@
         android:id="@+id/event_item_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:textColor="#616467"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/item_mail_avatar"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/roboto_light"
+        android:textColor="#7b858b"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Google Express - 15 mins ago" />
 
@@ -40,41 +45,43 @@
         android:id="@+id/event_item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed-medium"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/gess"
         android:textColor="#202528"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/event_item_time"
-        app:layout_constraintTop_toBottomOf="@+id/event_item_time"
+        app:layout_constraintStart_toEndOf="@+id/item_mail_avatar"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Package shipped !" />
 
     <TextView
         android:id="@+id/event_item_text"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:ellipsize="end"
-        android:lines="1"
-        android:text="@{mail.description}"
+        android:fontFamily="@font/gessfont"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/event_item_title"
-        tools:text="Cucumber Mask Facial has shipped" />
+        tools:text="Cucumber Mask Facial has shippedCucumber Mask Facial has shippedCucumber Mask Facial has shippedCucumber Mask Facial has shipped" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/event_item_image_recycler"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/event_item_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/event_item_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

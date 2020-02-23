@@ -21,8 +21,9 @@ import com.intellitech.creches.utils.PARENT_PHONE_PREF
 import com.intellitech.creches.utils.SHARED_PREF_NAME
 import android.os.Build
 import androidx.fragment.app.Fragment
-
-
+import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.event_item.view.*
+import kotlinx.android.synthetic.main.nav_header.*
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -130,6 +131,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             homeworkFragment = HomeworkFragment.newInstance(currentKid, ArrayList(kids))
             tuitionsFragment = TuitionsFragment.newInstance(currentKid, ArrayList(kids))
             calendarFragment = CalendarFragment.newInstance(currentKid, ArrayList(kids))
+            Glide.with(this).load(R.drawable.baby).circleCrop().into(nav_profile)
+            studentName.text=currentKid.kidProfile!!.lastName
+            studentClass.text="Section:"+currentKid.section+" Groupe:"+currentKid.group+"."
+
             initContent()
         }
     }

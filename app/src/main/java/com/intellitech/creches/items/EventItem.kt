@@ -29,9 +29,9 @@ class EventItem(private val event: Event) : Item() {
         val date = LocalDate.parse(event.eventDate, formatter)
         val period = Period.between(date, LocalDate.now())
         if (period.days > 1) {
-            viewHolder.itemView.event_item_time.text = event.eventDate
+            viewHolder.itemView.event_item_time.text = "Le "+event.eventDate+" à "+event.eventTime
         } else {
-            viewHolder.itemView.event_item_time.text = event.eventTime
+            viewHolder.itemView.event_item_time.text = "Aujourd'hui à :"+event.eventTime
         }
         // Handling the image horizontal recycler
         viewHolder.itemView.event_item_image_recycler.adapter = imageAdapter

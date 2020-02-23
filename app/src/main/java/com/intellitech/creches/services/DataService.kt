@@ -218,6 +218,7 @@ object DataService {
     fun fetchHomworks(kid:KidAccount,resultHomeworks:(List<Other>)->Unit){
         val database = FirebaseDatabase.getInstance().reference
         val homeworkRef= database.child("creche123/sections/${kid.section}/groups/${kid.group}/other")
+        Log.d("firebase", "creche123/sections/${kid.section}/groups/${kid.group}/other")
         homeworkRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 val listHomeworks= mutableListOf<Other>()

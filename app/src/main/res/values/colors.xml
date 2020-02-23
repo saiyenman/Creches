@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#2CA3D5</color>
-    <color name="colorPrimaryDark">#144C63</color>
+    <color name="colorPrimaryDark">#2CA3D5</color>
     <color name="colorAccent">#8CDBFD</color>
     <color name="whiteColor">#FFF</color>
     <color name="blueBackground">#DCECF3</color>
     <color name="greenBackground">#CDE2AE</color>
     <color name="greenDark">#2E5336</color>
     <color name="inputTextColor">#CCC</color>
+    <color name="drawerbackground">#f5f8fa</color>
 
 
 </resources>

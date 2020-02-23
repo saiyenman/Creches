@@ -43,8 +43,8 @@ class CalendarFragment : Fragment() {
         return v
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         days_rv.adapter = daysAdapter
         sessions_rv.adapter = sessionsAdapter
         days.forEach {

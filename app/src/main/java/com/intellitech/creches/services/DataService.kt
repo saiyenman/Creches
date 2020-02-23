@@ -178,7 +178,7 @@ object DataService {
 
     fun fetchTuitions(kid:KidAccount, resultPayments:(List<Payment>)->Unit){
         val database = FirebaseDatabase.getInstance().reference
-        val tuitionsRef= database.child("creche123/accounts/kidsAccounts/"+kid.kidProfile!!.name+kid.kidProfile.lastName+"/payments")
+        val tuitionsRef= database.child("creche123/accounts/kidsAccounts/"+kid.kidProfile!!.id+"/payments")
 
         tuitionsRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {

@@ -8,6 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
     <style name="drawerfontstyle" parent="android:Widget.TextView">
-        <item name="android:fontFamily">@font/gess</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
     </style>
 </resources>

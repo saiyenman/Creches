@@ -3,7 +3,9 @@ package com.intellitech.creches
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -17,6 +19,8 @@ import com.intellitech.creches.utils.PARENT_PHONE_EXTRA
 import com.intellitech.creches.utils.PARENT_PHONE_PREF
 import com.intellitech.creches.utils.SHARED_PREF_NAME
 import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.content_main.view.*
 import kotlinx.android.synthetic.main.nav_header.*
 
 
@@ -61,6 +65,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        appBarLayout.toolbar.title=getString(R.string.apptitle)
         kids = listOf()
         mAuth = FirebaseAuth.getInstance()
         val currentUser = mAuth.currentUser
@@ -109,6 +114,29 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             Glide.with(this).load(R.drawable.baby).circleCrop().into(nav_profile)
             studentName.text=currentKid.kidProfile!!.lastName
             studentClass.text="Section:"+currentKid.section+" Groupe:"+currentKid.group+"."
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.action_menu,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.notifications -> {
+            // User chose the "Print" item
+            Toast.makeText(this,"Print action", Toast.LENGTH_LONG).show()
+            true
+        }
+        android.R.id.home ->{
+            Toast.makeText(this,"Home action",Toast.LENGTH_LONG).show()
+            true
+        }
+
+        else -> {
+            // If we got here, the user's action was not recognized.
+            // Invoke the superclass to handle it.
+            super.onOptionsItemSelected(item)
         }
     }
 }

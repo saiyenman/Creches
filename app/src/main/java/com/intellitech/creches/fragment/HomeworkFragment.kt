@@ -36,8 +36,8 @@ class HomeworkFragment : Fragment() {
         return v
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         homework_rv.adapter = homeworkAdapter
         fetchHomeworks()
         change_kid_btn.setOnClickListener {

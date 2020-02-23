@@ -41,8 +41,8 @@ class TuitionsFragment : Fragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         tuitions_rv.adapter = tuitionsAdapter
         fetchTuitions()
         change_kid_btn.setOnClickListener {

@@ -195,7 +195,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
-            android:fontFamily="casual"
+            android:fontFamily="@font/lalezar"
             android:text="@string/homework"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp" />

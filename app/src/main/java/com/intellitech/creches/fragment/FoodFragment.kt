@@ -112,7 +112,6 @@ class FoodFragment : Fragment() {
             Toast.makeText(context,formatter.format(date), Toast.LENGTH_SHORT).show()
             textview_day.text  = formatter.format(date)
             fetchMenu(SimpleDateFormat("EEEE", Locale.ENGLISH).format(date))
-
         }
     }
 

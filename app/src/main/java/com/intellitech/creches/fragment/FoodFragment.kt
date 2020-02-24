@@ -43,14 +43,10 @@ class FoodFragment : Fragment() {
         super.onCreate(savedInstanceState)
         //createNotificationChannel()
     }
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val v= inflater.inflate(R.layout.fragment_food, container, false)
 
-        calendar_btn=v.findViewById(R.id.calendar_btn)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        calendar_btn=calendar_btn
         //textview_day=v.findViewById(R.id.textview_day)
         val cal = Calendar.getInstance()
         val myFormat = "EEEE dd MMM yy"
@@ -62,12 +58,21 @@ class FoodFragment : Fragment() {
         fetchMenu("Monday")
         // create an OnDateSetListener
         buttonDayteListener(cal,myFormat)
+    }
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        val v= inflater.inflate(R.layout.fragment_food, container, false)
+
+
         return v
     }
     private fun buttonDayteListener(
         cal: Calendar,
         myFormat: String
-    ) {
+    ){
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
                                    dayOfMonth: Int) {

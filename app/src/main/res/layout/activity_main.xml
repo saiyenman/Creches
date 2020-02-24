@@ -21,7 +21,7 @@
         android:layout_gravity="start"
         android:background="@color/drawerbackground"
         android:clipToPadding="false"
-        android:fitsSystemWindows="true"
+        android:fitsSystemWindows="false"
         app:headerLayout="@layout/nav_header"
         app:itemHorizontalPadding="24dp"
         app:itemIconPadding="36dp"

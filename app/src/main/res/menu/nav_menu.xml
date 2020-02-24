@@ -3,30 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/nav_news"
-        android:icon="@drawable/ic_iconcalendar"
+        android:icon="@drawable/iconsnews"
         android:title="@string/news"/>
     <item
         android:id="@+id/nav_events"
-        android:icon="@drawable/callendarclock"
+        android:icon="@drawable/iconsnotification"
         android:title="@string/events"/>
     <item
         android:id="@+id/nav_food"
-        android:icon="@drawable/ic_burger"
+        android:icon="@drawable/iconsfood"
         android:title="@string/food"/>
     <item
         android:id="@+id/nav_homework"
-        android:icon="@drawable/homework"
+        android:icon="@drawable/iconsbook"
         android:title="@string/homework"/>
     <item
         android:id="@+id/nav_callendar"
-        android:icon="@drawable/ic_calendar"
+        android:icon="@drawable/iconscalendar"
         android:title="@string/callendar"/>
     <item
         android:id="@+id/nav_tuitions"
-        android:icon="@drawable/tuition"
+        android:icon="@drawable/iconsmoney"
         android:title="@string/tuitions"/>
     <item
         android:id="@+id/nav_health"
-        android:icon="@drawable/ic_heart"
+        android:icon="@drawable/iconsheart"
         android:title="@string/health"/>
 </menu>

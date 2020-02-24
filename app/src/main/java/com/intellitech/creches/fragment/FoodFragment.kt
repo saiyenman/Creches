@@ -46,7 +46,6 @@ class FoodFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        calendar_btn=calendar_btn
         //textview_day=v.findViewById(R.id.textview_day)
         val cal = Calendar.getInstance()
         val myFormat = "EEEE dd MMM yy"

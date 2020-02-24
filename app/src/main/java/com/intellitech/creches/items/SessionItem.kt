@@ -15,10 +15,10 @@ class SessionItem(private val session: Session) : Item() {
         viewHolder.itemView.session_time_tv.text = session.sessionStartTime
         viewHolder.itemView.session_title_tv.text = session.sessionTitle
         // Generating divider color randomly
-        when((1..3).shuffled().first()) {
+        /*when((1..3).shuffled().first()) {
             1 -> viewHolder.itemView.divider.setBackgroundColor(Color.BLUE)
             2 -> viewHolder.itemView.divider.setBackgroundColor(Color.RED)
             3 -> viewHolder.itemView.divider.setBackgroundColor(Color.YELLOW)
-        }
+        }*/
     }
 }

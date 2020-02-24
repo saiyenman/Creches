@@ -23,4 +23,5 @@
     <string name="meal3">Dinner</string>
     <string name="health">Santé</string>
     <string name="apptitle">AlQualem</string>
+    <string name="fullcallendar">callendrier</string>
 </resources>

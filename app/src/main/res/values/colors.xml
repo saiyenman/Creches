@@ -9,6 +9,11 @@
     <color name="greenDark">#2E5336</color>
     <color name="inputTextColor">#CCC</color>
     <color name="drawerbackground">#f5f8fa</color>
+    <color name="blue_dark">#213E7F</color>
+    <color name="menuItemsColor">#60879C</color>
+    <color name="awesome_background">#F4F4F4</color>
+    <color name="meal_divider_color">#DEDEDE</color>
+
 
 
 </resources>

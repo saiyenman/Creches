@@ -102,12 +102,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             replace(R.id.content_frame, firstFragment)
             addToBackStack(null)
         }
-        // Commit the transaction
-        transaction.commit()
-    }
-
-    override fun onStart() {
-        super.onStart()
         DataService.getParentKids(phone) {  kidsResult ->
             kids = kidsResult
             currentKid = kidsResult[0]
@@ -115,6 +109,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             studentName.text=currentKid.kidProfile!!.lastName
             studentClass.text="Section:"+currentKid.section+" Groupe:"+currentKid.group+"."
         }
+        // Commit the transaction
+        transaction.commit()
+    }
+
+    override fun onStart() {
+        super.onStart()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

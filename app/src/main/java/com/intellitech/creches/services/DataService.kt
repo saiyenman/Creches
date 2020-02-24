@@ -198,15 +198,16 @@ object DataService {
         })
     }
 
-    fun fetchMenu(date:String,resultMenu:(s:String,r:String,t:String)->Unit){
+    fun fetchMenu(date:String,resultMenu:(DayMenu)->Unit){
         val database = FirebaseDatabase.getInstance().reference
         val menuRef= database.child("creche123/menu/"+date)
 
         menuRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
-                val todaymenu=p0.getValue(DayMenu::class.java)
-                if (todaymenu != null) {
-                    resultMenu(todaymenu.meal1,todaymenu.meal2,todaymenu.meal3)
+                var dayMenu: DayMenu
+                dayMenu= p0.getValue(DayMenu::class.java)!!
+                if (dayMenu != null) {
+                    resultMenu(dayMenu)
                 }
             }
             override fun onCancelled(p0: DatabaseError) {

@@ -26,7 +26,7 @@
         app:itemHorizontalPadding="24dp"
         app:itemIconPadding="36dp"
         app:itemTextAppearance="@style/drawerfontstyle"
-        app:itemTextColor="#60879C"
+        app:itemTextColor="@color/menuItemsColor"
         app:menu="@menu/nav_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

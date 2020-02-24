@@ -10,4 +10,7 @@
     <style name="drawerfontstyle" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/montserrat_bold</item>
     </style>
+    <style name="CustomTextAppearance" parent="TextAppearance.MaterialCalendarWidget.Date">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
 </resources>

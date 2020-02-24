@@ -3,6 +3,7 @@ package com.intellitech.creches
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -104,16 +105,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         // Commit the transaction
         transaction.commit()
-    }
 
-    override fun onStart() {
-        super.onStart()
         DataService.getParentKids(phone) {  kidsResult ->
             kids = kidsResult
             currentKid = kidsResult[0]
             Glide.with(this).load(R.drawable.baby).circleCrop().into(nav_profile)
-            studentName.text=currentKid.kidProfile!!.lastName
-            studentClass.text="Section:"+currentKid.section+" Groupe:"+currentKid.group+"."
         }
     }
 

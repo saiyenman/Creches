@@ -22,20 +22,12 @@ import kotlinx.android.synthetic.main.fragment_news.*
 private const val ARG_KIDS = "phone"
 
 class NewsFragment : Fragment() {
-    private var kids: ArrayList<KidAccount>? = null
     private val eventAdapter = GroupAdapter<GroupieViewHolder>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v =inflater.inflate(R.layout.fragment_news, container, false)
         // Inflate the layout for this fragment
         return v
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            kids = it.getParcelableArrayList(ARG_KIDS)
-        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -51,16 +43,6 @@ class NewsFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         eventAdapter.clear()
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(kidsParam: ArrayList<KidAccount>) =
-            NewsFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelableArrayList(ARG_KIDS, kidsParam as ArrayList<out Parcelable>?)
-                }
-            }
     }
 
 }

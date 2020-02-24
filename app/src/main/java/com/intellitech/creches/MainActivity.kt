@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
             R.id.nav_news -> {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, NewsFragment.newInstance(ArrayList(kids))).commit()
+                    .replace(R.id.content_frame, NewsFragment()).commit()
             }
             R.id.nav_events -> {
             }

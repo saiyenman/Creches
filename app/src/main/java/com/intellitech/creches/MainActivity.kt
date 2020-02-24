@@ -3,6 +3,7 @@ package com.intellitech.creches
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
             R.id.nav_news -> {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, NewsFragment.newInstance(ArrayList(kids))).commit()
+                    .replace(R.id.content_frame, NewsFragment()).commit()
             }
             R.id.nav_events -> {
             }
@@ -66,6 +67,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         appBarLayout.toolbar.title=getString(R.string.apptitle)
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navView = findViewById(R.id.nav_view)
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         kids = listOf()
         mAuth = FirebaseAuth.getInstance()
         val currentUser = mAuth.currentUser
@@ -80,12 +86,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else {
             phone = getSharedPreferences(SHARED_PREF_NAME, 0).getString(PARENT_PHONE_PREF, "")!!
         }
-
-        toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
-
-        drawerLayout = findViewById(R.id.drawer_layout)
-        navView = findViewById(R.id.nav_view)
 
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, toolbar, 0, 0
@@ -102,19 +102,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             replace(R.id.content_frame, firstFragment)
             addToBackStack(null)
         }
+        // Commit the transaction
+        transaction.commit()
+
         DataService.getParentKids(phone) {  kidsResult ->
             kids = kidsResult
             currentKid = kidsResult[0]
             Glide.with(this).load(R.drawable.baby).circleCrop().into(nav_profile)
-            studentName.text=currentKid.kidProfile!!.lastName
-            studentClass.text="Section:"+currentKid.section+" Groupe:"+currentKid.group+"."
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
         }
-        // Commit the transaction
-        transaction.commit()
-    }
-
-    override fun onStart() {
-        super.onStart()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

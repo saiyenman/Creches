@@ -3,28 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="6dp">
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="2dp"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/ic_launcher_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/session_title_tv"
-        app:layout_constraintStart_toEndOf="@+id/session_time_tv"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/session_time_tv"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/gess"
+        android:layout_width="90dp"
+        android:layout_height="60dp"
+        android:background="@drawable/session_item_background"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center"
         android:text="08:30"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,17 +20,16 @@
     <TextView
         android:id="@+id/session_title_tv"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_height="0dp"
+        android:background="@drawable/session_item_background"
         android:fontFamily="@font/gess"
+        android:gravity="center|start"
+        android:paddingLeft="8dp"
         android:text="TextView"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/divider"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.046"
-        app:layout_constraintStart_toEndOf="@+id/divider"
-        app:layout_constraintTop_toTopOf="@+id/divider"
-        app:layout_constraintVertical_bias="0.571" />
+        app:layout_constraintStart_toEndOf="@+id/session_time_tv"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

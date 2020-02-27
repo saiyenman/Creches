@@ -32,11 +32,11 @@
         android:id="@+id/event_item_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="@font/roboto_light"
         android:textColor="#7b858b"
-        android:textSize="10sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Google Express - 15 mins ago" />
@@ -62,12 +62,12 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:ellipsize="end"
-        android:fontFamily="@font/gessfont"
+        android:fontFamily="@font/changa_medium"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/event_item_title"
-        tools:text="Cucumber Mask Facial has shippedCucumber Mask Facial has shippedCucumber Mask Facial has shippedCucumber Mask Facial has shipped" />
+        tools:text="Lorem epsum land ichnth keiouyou tit" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/event_item_image_recycler"

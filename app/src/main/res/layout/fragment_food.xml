@@ -38,7 +38,7 @@
             android:fontFamily="@font/gess"
             android:text="@string/meal1"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -57,7 +57,7 @@
         android:id="@+id/lunch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:background="@color/awesome_background"
         app:layout_constraintTop_toBottomOf="@+id/snack"
         tools:layout_editor_absoluteX="-20dp">
@@ -71,7 +71,7 @@
             android:fontFamily="@font/gess"
             android:text="@string/meal3"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -90,7 +90,7 @@
         android:id="@+id/snack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:background="@color/awesome_background"
         app:layout_constraintTop_toBottomOf="@+id/breakfast">
 
@@ -111,7 +111,7 @@
             android:fontFamily="@font/gess"
             android:text="@string/meal2"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

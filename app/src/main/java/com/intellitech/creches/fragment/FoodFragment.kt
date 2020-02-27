@@ -15,6 +15,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -53,6 +55,9 @@ class FoodFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        menu_item_meal1.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        menu_item_meal2.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        menu_item_meal3.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         menu_item_meal1.adapter=food_Adapter1
         menu_item_meal2.adapter=food_Adapter2
         menu_item_meal3.adapter=food_Adapter3

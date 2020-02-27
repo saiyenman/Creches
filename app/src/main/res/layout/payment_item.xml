@@ -1,52 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="4dp"
+    android:layout_marginTop="8dp"
     android:background="@color/white"
+    android:clickable="true"
     android:elevation="4dp"
     android:orientation="vertical"
     android:padding="4dp">
 
     <TextView
+        android:id="@+id/payment_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:layout_weight="1"
+        android:background="@color/blueBackground"
+        android:fontFamily="sans-serif-black"
+        android:padding="4dp"
+        android:paddingStart="8dp"
+        android:text="Frais d'inscription"
+        android:textColor="@color/blue_dark"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/payment_date"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
+        android:layout_margin="2dp"
         android:fontFamily="@font/gess"
-        android:text="TextView"
-        android:textSize="12sp" />
+        android:paddingRight="2dp"
+        android:text="Date : 24-02-2020"
+        android:textColor="#3C3C3C"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/payment_description" />
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/blueBackground" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/payment_status"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="4dp">
+        android:layout_margin="2dp"
+        android:fontFamily="@font/gess"
+        android:paddingRight="2dp"
+        android:text="Status : paid"
+        android:textColor="#3C3C3C"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/payment_date" />
 
-        <TextView
-            android:id="@+id/payment_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/gessfont"
-            android:text="TextView"
-            android:textSize="15sp" />
+    <TextView
+        android:id="@+id/payment_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/gess"
+        android:paddingRight="2dp"
+        android:text="Amount : 2400 DA"
+        android:textColor="#3C3C3C"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/payment_status" />
 
-        <TextView
-            android:id="@+id/payment_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/gess"
-            android:text="TextView"
-            android:textColor="@color/greenDark"
-            android:textSize="15sp" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:fontFamily="@font/gess"
+        android:paddingLeft="4dp"
+        android:text="Date :"
+        android:textColor="#3C3C3C"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/payment_description" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:fontFamily="@font/gess"
+        android:paddingLeft="4dp"
+        android:text="Status : "
+        android:textColor="#3C3C3C"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/payment_date" />
+
+    <TextView
+        android:id="@+id/textView6"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/gess"
+        android:paddingLeft="4dp"
+        android:text="Amount : "
+        android:textColor="#3C3C3C"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/payment_status" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -219,7 +219,7 @@ object DataService {
     fun fetchHomeworks(kid:KidAccount,resultHomeworks:(List<Other>)->Unit){
         val database = FirebaseDatabase.getInstance().reference
         val homeworkRef= database.child("creche123/sections/${kid.section}/groups/${kid.group}/other")
-        Log.d("firebase", "creche123/sections/${kid.section}/groups/${kid.group}/other")
+
         homeworkRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 val listHomeworks= mutableListOf<Other>()
@@ -227,9 +227,14 @@ object DataService {
                     val homewrk=it.getValue(Other::class.java)
                     if(homewrk!=null)
                     {
-                        if(homewrk.to.contains(kid.kidProfile!!.id)){
-                            listHomeworks.add(homewrk)
+
+                        homewrk.to.forEach {
+                            Log.d("firebase", "==============>${kid.kidProfile!!.id}   ==??    ${it}")
+                            if(it==kid.kidProfile!!.id)
+                                listHomeworks.add(homewrk)
                         }
+
+
                     }
                 }
                 resultHomeworks(listHomeworks)

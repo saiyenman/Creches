@@ -24,4 +24,6 @@
     <string name="health">Santé</string>
     <string name="apptitle">AlQualem</string>
     <string name="fullcallendar">callendrier</string>
+    <string name="payment_status_true">payé</string>
+    <string name="payment_status_false">non payé</string>
 </resources>

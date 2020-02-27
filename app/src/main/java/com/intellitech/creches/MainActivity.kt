@@ -110,6 +110,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             currentKid = kidsResult[0]
             Glide.with(this).load(R.drawable.baby).circleCrop().into(nav_profile)
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            studentName.text=currentKid.parent!!.parentProfile!!.name+" "+currentKid!!.parent!!.parentProfile!!.name
         }
     }
 

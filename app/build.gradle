@@ -24,6 +24,10 @@ android {
     androidExtensions {
         experimental = true
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -56,7 +60,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     // Date picker
     implementation 'com.vivekkaushik.datepicker:datePickerTimeline:0.0.4'
-    implementation  'com.dialog:plus:4+'
+    implementation 'com.dialog:plus:4+'
     implementation 'androidx.work:work-runtime:2.3.2'
     implementation 'com.google.firebase:firebase-messaging:20.1.0'
     //implementation 'noman.weekcalendar:weekcalendar:1.0.6'

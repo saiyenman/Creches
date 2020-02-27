@@ -8,11 +8,11 @@
 
     <ImageView
         android:id="@+id/food_item"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,6 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:fontFamily="@font/gess"
         android:text="TextView"
         android:textColor="@color/Black"
         android:textSize="16sp"
@@ -31,13 +32,4 @@
         app:layout_constraintStart_toEndOf="@+id/food_item"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/meal_divider"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="20dp"
-        android:background="@color/meal_divider_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/food_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>

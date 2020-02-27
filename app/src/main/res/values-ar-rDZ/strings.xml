@@ -24,4 +24,6 @@
     <string name="health">صحة</string>
     <string name="apptitle">القلم</string>
     <string name="fullcallendar">رزنامة</string>
+    <string name="payment_status_true">تم الدفع</string>
+    <string name="payment_status_false">غير مسدد</string>
 </resources>

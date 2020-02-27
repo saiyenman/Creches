@@ -170,12 +170,9 @@
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_height="80dp"
         android:background="@color/white"
-        android:foregroundGravity="center"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="8dp"
         app:layout_constraintBottom_toTopOf="@+id/homework_rv"
@@ -187,8 +184,9 @@
             android:id="@+id/tuition_img"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/homework"
-            tools:srcCompat="@drawable/tuition" />
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/iconsmoney" />
 
         <TextView
             android:id="@+id/textView2"
@@ -196,7 +194,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
-            android:fontFamily="@font/lalezar"
+            android:fontFamily="@font/gess"
             android:text="@string/tuitions"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp" />

@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.intellitech.creches.R
 import com.intellitech.creches.items.HomeworkItem
@@ -32,19 +34,9 @@ class HomeworkFragment : Fragment() {
     ): View? {
 
         // Inflate the layout for this fragment
-        val v =inflater.inflate(R.layout.fragment_homework, container, false)
-        return v
-    }
+        return inflater.inflate(R.layout.fragment_homework, container, false)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        homework_rv.adapter = homeworkAdapter
-        fetchHomeworks()
-        change_kid_btn.setOnClickListener {
-            showKidsDialog()
-        }
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -52,6 +44,17 @@ class HomeworkFragment : Fragment() {
             kids = it.getParcelableArrayList(ARG_KIDS)
         }
     }
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        homework_rv.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        homework_rv.adapter = homeworkAdapter
+        fetchHomeworks()
+        change_kid_btn.setOnClickListener {
+            showKidsDialog()
+        }
+    }
+
+
     fun showKidsDialog() {
         val builder = AlertDialog.Builder(activity!!)
         builder.setTitle("Choose a kid")
@@ -82,9 +85,10 @@ class HomeworkFragment : Fragment() {
     }
 
     private fun fetchHomeworks(){
-        homeworkAdapter.clear()
+
         DataService.fetchHomeworks(currentkid!!){ homeworks->
             homeworks.forEach { homework ->
+                Log.d("firebase", homework.title+"===="+homework.description+"===="+homework.timing)
                 homeworkAdapter.add(HomeworkItem(homework))
             }
         }

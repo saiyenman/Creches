@@ -19,8 +19,6 @@ import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.event_item.*
 import kotlinx.android.synthetic.main.fragment_news.*
 
-private const val ARG_KIDS = "phone"
-
 class NewsFragment : Fragment() {
     private val eventAdapter = GroupAdapter<GroupieViewHolder>()
 

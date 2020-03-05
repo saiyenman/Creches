@@ -31,8 +31,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var toolbar: Toolbar
     lateinit var drawerLayout: DrawerLayout
     lateinit var navView: NavigationView
-    lateinit var kids: List<KidAccount>
-    lateinit var currentKid: KidAccount
+    companion object {
+        lateinit var kids: List<KidAccount>
+        lateinit var currentKid: KidAccount
+    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -73,6 +75,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navView = findViewById(R.id.nav_view)
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         kids = listOf()
+
         mAuth = FirebaseAuth.getInstance()
         val currentUser = mAuth.currentUser
         // If user not already logged in -> go to Login Activity

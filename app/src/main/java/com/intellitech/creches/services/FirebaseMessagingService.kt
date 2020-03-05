@@ -99,8 +99,8 @@ class FirebaseMessagingService : FirebaseMessagingService() {
      *
      * @param token The new token.
      */
-    private fun sendRegistrationToServer(token: String?) {
-
+    private fun sendRegistrationToServer(token: String) {
+        DataService.sendUserMessagingTokenToServer(token)
     }
 
     /**

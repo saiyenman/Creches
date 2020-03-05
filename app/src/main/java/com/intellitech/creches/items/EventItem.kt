@@ -16,7 +16,6 @@ import java.util.*
 class EventItem(private val event: Event) : Item() {
     private val imageAdapter = GroupAdapter<GroupieViewHolder>()
 
-
     override fun getLayout() = R.layout.event_item
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {

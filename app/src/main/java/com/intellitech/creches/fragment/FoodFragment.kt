@@ -1,42 +1,24 @@
 package com.intellitech.creches.fragment
 
 import android.app.*
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.DatePicker
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.intellitech.creches.MainActivity
 import com.intellitech.creches.R
-import com.intellitech.creches.items.CalendarDayItem
-import com.intellitech.creches.items.HomeworkItem
 import com.intellitech.creches.items.MealItem
-import com.intellitech.creches.models.DayMenu
 import com.intellitech.creches.services.DataService
-import com.intellitech.creches.services.DataService.fetchMenu
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
-import com.prolificinteractive.materialcalendarview.format.WeekDayFormatter
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import kotlinx.android.synthetic.main.fragment_calendar.*
 import kotlinx.android.synthetic.main.fragment_food.*
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -74,13 +56,17 @@ class FoodFragment : Fragment() {
         calendarView.setSelectedDate(CalendarDay.today())
         calendarView.state().edit()
             .setMinimumDate(CalendarDay.from(2019, 9, 1))
-            .setMaximumDate(CalendarDay.from(2020, 5, 30))
+            .setMaximumDate(CalendarDay.from(2020, 9, 30))
             .commit()
         calendarView.setOnDateChangedListener(OnDateSelectedListener(){widget: MaterialCalendarView, date:CalendarDay, selected:Boolean->
             val simpleDateFormat = SimpleDateFormat("EEEE", Locale.ENGLISH)
-            val date = Date(date.year, date.month,  date.day- 1)
-            val dayString = simpleDateFormat.format(date)
-            fetch(dayString)
+            //val date = Date(date.year, date.month,  date.day)//-1
+            val date2= if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                LocalDateTime.of(date.year,date.month,date.day,0,0).format(DateTimeFormatter.ofPattern("EEEE", Locale.ENGLISH))
+            } else {
+                Date(date.year, date.month,  date.day)//-1
+            }
+            fetch(date2.toString())
         })
         }
     private fun fetch(date:String){
